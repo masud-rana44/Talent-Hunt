@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 const ContestCard = ({ contest }) => {
-  const { name, image, attemptedCount, type, description } = contest;
+  const { _id, name, image, attemptedCount, type, description } = contest;
 
   return (
     <div>
@@ -13,7 +15,9 @@ const ContestCard = ({ contest }) => {
           <span>{attemptedCount}</span>
           <span>{type}</span>
         </div>
-        <button className="py-2 px-4 bg-slate-200">Details</button>
+        <Link to={`/contests/${_id}`}>
+          <button className="py-2 px-4 bg-slate-200">Details</button>
+        </Link>
       </div>
     </div>
   );

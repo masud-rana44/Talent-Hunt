@@ -13,12 +13,24 @@ const Navbar = () => {
             <Logo />
 
             {/* Home */}
-            <Link
-              to="/"
-              className="block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-            >
-              Home
-            </Link>
+            <ul className="flex items-center gap-x-6">
+              <li>
+                <Link
+                  to="/"
+                  className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contests"
+                  className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  Contests
+                </Link>
+              </li>
+            </ul>
 
             {/* Dropdown Menu */}
             <MenuDropdown />

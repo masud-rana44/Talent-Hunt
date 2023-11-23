@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const MenuDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const user = false;
+  // const user = false;
 
   return (
     <div className="relative">
@@ -17,14 +17,14 @@ const MenuDropdown = () => {
           <AiOutlineMenu />
           <div className="hidden md:block">
             {/* Avatar */}
-            <img
+            {/* <img
               className="rounded-full"
               referrerPolicy="no-referrer"
               src={user && user.photoURL}
               alt="profile"
               height="30"
               width="30"
-            />
+            /> */}
           </div>
         </div>
       </div>

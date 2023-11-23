@@ -1,6 +1,8 @@
 const Footer = () => {
   return (
-    <div className="py-36 bg-neutral-100 text-center font-semibold">Footer</div>
+    <footer className="py-36 mt-20 bg-neutral-100 text-center font-semibold">
+      Footer
+    </footer>
   );
 };
 
