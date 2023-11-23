@@ -1,6 +1,6 @@
 import MenuDropdown from "./MenuDropdown";
-import Logo from "../../Logo";
-import Container from "../../Container";
+import Logo from "../Logo";
+import Container from "../Container";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
