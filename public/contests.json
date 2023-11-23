@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Design Challenge",
+    "image": "https://via.placeholder.com/300",
+    "attemptedCount": 152,
+    "description": "Create an innovative logo design",
+    "type": "Design",
+    "tags": ["Design", "Graphics", "Creativity"],
+    "deadline": "2023-12-15",
+    "creator": {
+      "id": 101,
+      "name": "CreativeMind",
+      "image": "https://via.placeholder.com/150",
+      "description": "Experienced in graphic design",
+      "role": "Contest Creator"
+    },
+    "winner": {
+      "id": 201,
+      "name": "DesignMaster",
+      "image": "https://via.placeholder.com/150",
+      "prize": "$500"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Coding Challenge",
+    "image": "https://via.placeholder.com/300",
+    "attemptedCount": 87,
+    "description": "Develop a creative web application",
+    "type": "Coding",
+    "tags": ["Web Development", "Programming", "Coding"],
+    "deadline": "2023-12-30",
+    "creator": {
+      "id": 102,
+      "name": "CodeGenius",
+      "image": "https://via.placeholder.com/150",
+      "description": "Expert in various programming languages",
+      "role": "Contest Creator"
+    },
+    "winner": null
+  },
+  {
+    "id": 3,
+    "name": "Writing Contest",
+    "image": "https://via.placeholder.com/300",
+    "attemptedCount": 123,
+    "description": "Compose a compelling short story",
+    "type": "Writing",
+    "tags": ["Creative Writing", "Literature", "Storytelling"],
+    "deadline": "2023-12-20",
+    "creator": {
+      "id": 103,
+      "name": "StoryWeaver",
+      "image": "https://via.placeholder.com/150",
+      "description": "Passionate about storytelling",
+      "role": "Contest Creator"
+    },
+    "winner": {
+      "id": 202,
+      "name": "WordSmith",
+      "image": "https://via.placeholder.com/150",
+      "prize": "$300"
+    }
+  }
+]
