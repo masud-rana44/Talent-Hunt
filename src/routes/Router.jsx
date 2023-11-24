@@ -9,12 +9,17 @@ import AllContests from "../pages/AllContests";
 import ContestDetails from "../pages/ContestDetails";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
-
-import PublicRoute from "./PublicRoute";
-import PrivateRoute from "./PrivateRoute";
 import MyRegisteredContest from "../pages/user/MyRegisteredContest";
 import MyWinningContest from "../pages/user/MyWinningContest";
 import MyProfile from "../pages/user/MyProfile";
+import AddContest from "../pages/creator/AddContest";
+import ContestSubmitted from "../pages/creator/ContestSubmitted";
+import ManageUser from "../pages/admin/ManageUser";
+import ManageContest from "../pages/admin/ManageContest";
+
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
+import MyCreatedContest from "../pages/creator/MyCreatedContest";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +63,27 @@ const router = createBrowserRouter([
         element: <MyProfile />,
       },
       // creator routes
+      {
+        path: "contests/new",
+        element: <AddContest />,
+      },
+      {
+        path: "contests/:id",
+        element: <MyCreatedContest />,
+      },
+      {
+        path: "contests/submitted",
+        element: <ContestSubmitted />,
+      },
       // admin routes
+      {
+        path: "users",
+        element: <ManageUser />,
+      },
+      {
+        path: "contests",
+        element: <ManageContest />,
+      },
     ],
   },
   {

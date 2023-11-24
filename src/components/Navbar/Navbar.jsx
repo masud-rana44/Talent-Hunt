@@ -36,6 +36,14 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
+                <Link
+                  to="/dashboard"
+                  className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li>
                 <button className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold capitalize">
                   {role}
                 </button>
