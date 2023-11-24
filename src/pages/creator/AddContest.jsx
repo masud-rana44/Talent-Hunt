@@ -1,5 +1,11 @@
+import AddContestForm from "../../components/Form/AddContestForm";
+
 const AddContest = () => {
-  return <div>AddContest</div>;
+  return (
+    <div>
+      <AddContestForm />
+    </div>
+  );
 };
 
 export default AddContest;
