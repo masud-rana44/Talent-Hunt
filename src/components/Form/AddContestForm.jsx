@@ -35,7 +35,7 @@ const AddContestForm = () => {
 
       if (res) {
         toast.success("Contest added successfully");
-        navigate("/creator/contests");
+        navigate("/dashboard/creator/contests");
       }
     } catch (error) {
       console.log(error);

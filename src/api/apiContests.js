@@ -12,6 +12,11 @@ export const getContestById = async (id) => {
   return data;
 };
 
+export const getContestByCreator = async (creatorId) => {
+  const { data } = await axiosPublic.get(`/contests/creator/${creatorId}`);
+  return data;
+};
+
 // Save a contest in DB
 export const saveContest = async (contest) => {
   const { data } = await axiosSecure.post("/contests", contest);
