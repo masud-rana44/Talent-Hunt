@@ -3,9 +3,11 @@ import Logo from "../Logo";
 import Container from "../Container";
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useRole from "../../../hooks/useRole";
 
 const Navbar = () => {
   const { logOut } = useAuth();
+  const { role } = useRole();
 
   return (
     <header className="fixed w-full bg-white z-10 shadow-sm">
@@ -32,6 +34,11 @@ const Navbar = () => {
                 >
                   Contests
                 </Link>
+              </li>
+              <li>
+                <button className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold capitalize">
+                  {role}
+                </button>
               </li>
               <li>
                 <button
