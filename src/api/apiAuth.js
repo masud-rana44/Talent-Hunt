@@ -26,6 +26,12 @@ export const getRole = async (email) => {
   return data.role || "user";
 };
 
+// get user by email
+export const getUser = async (email) => {
+  const { data } = await axiosSecure.get(`/users/${email}`);
+  return data;
+};
+
 // remove cookie
 export const clearCookie = async () => {
   const { data } = await axiosSecure.get("/logout");

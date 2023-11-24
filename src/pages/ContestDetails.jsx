@@ -1,7 +1,16 @@
 import Countdown from "react-countdown";
+import { useParams } from "react-router-dom";
+
 import Container from "../components/Shared/Container";
+import useContestById from "../hooks/useContestById";
+import Loader from "../components/Shared/Loader";
 
 const ContestDetails = () => {
+  const { id } = useParams();
+  const { contest, isLoading } = useContestById(id);
+
+  if (isLoading) return <Loader />;
+
   return (
     <div>
       <Container>
@@ -24,10 +33,12 @@ const ContestDetails = () => {
                 <span>Creator: {contest.creator.name}</span>
                 <span>Role: {contest.creator.role}</span>
               </div>
-              <div>
-                <span>Winner: {contest.winner.name}</span>
-                <span>Prize: {contest.winner.prize}</span>
-              </div>
+              {contest.winner && (
+                <div>
+                  <span>Winner: {contest.winner.name}</span>
+                  <span>Prize: {contest.winner.prize}</span>
+                </div>
+              )}
               <div>
                 <span>Tags: {contest.tags.join(", ")}</span>
               </div>
@@ -41,28 +52,3 @@ const ContestDetails = () => {
 };
 
 export default ContestDetails;
-
-const contest = {
-  _id: 3,
-  name: "Writing Contest",
-  image:
-    "https://hrcdn.net/s3_pub/istreet-assets/engage-assets/events/258/microsite/Frame%203%20(1).jpg",
-  attemptedCount: 123,
-  description: "Compose a compelling short story",
-  type: "Writing",
-  tags: ["Creative Writing", "Literature", "Storytelling"],
-  deadline: "2023-12-20",
-  creator: {
-    _id: 103,
-    name: "StoryWeaver",
-    image: "https://via.placeholder.com/150",
-    description: "Passionate about storytelling",
-    role: "Contest Creator",
-  },
-  winner: {
-    _id: 202,
-    name: "WordSmith",
-    image: "https://via.placeholder.com/150",
-    prize: "$300",
-  },
-};

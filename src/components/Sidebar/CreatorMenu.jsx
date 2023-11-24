@@ -15,7 +15,7 @@ const CreatorMenu = () => {
       <MenuItem
         label="My Created Contests"
         icon={BiSolidBookAdd}
-        address="/dashboard/contests/:id"
+        address="/dashboard/creator/contests"
       />
       <MenuItem
         label="Contest Submitted"

@@ -1,8 +1,11 @@
+import { saveContest } from "../../api/apiContests";
 import { imageUpload } from "../../api/utils";
-import useAuth from "../../hooks/useAuth";
+import useUser from "../../hooks/useUser";
 import FormLayout from "./FormLayout";
 import FormRow from "./FormRow";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddContestForm = () => {
   const {
@@ -10,28 +13,43 @@ const AddContestForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { userData, isLoading } = useUser();
+
+  if (isLoading && !userData) return <p>Loading...</p>;
 
   const onSubmit = async (data) => {
     const { name, description, price, instructions, type, deadline } = data;
 
-    // upload image
-    const imageUrl = await imageUpload(data.image[0]);
+    try {
+      // upload image
+      const imageUrl = await imageUpload(data.image[0]);
 
-    // create contest
-    const contestData = {
-      name,
-      description,
-      price: parseFloat(price),
-      instructions,
-      type,
-      deadline,
-      image: imageUrl,
-      creatorId: user?.uid,
-    };
-    console.log(contestData);
+      // create contest
+      const contestData = {
+        name,
+        description,
+        price: parseFloat(price),
+        instructions,
+        type,
+        deadline,
+        image: imageUrl,
+        status: "pending",
+        winner: null,
+        creatorId: userData._id,
+      };
 
-    // save the contest to the database
+      // save the contest to the database
+      const res = await saveContest(contestData);
+
+      if (res.acknowledged) {
+        toast.success("Contest added successfully");
+        navigate("/creator/contests");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message || "Error adding contest");
+    }
   };
 
   return (
