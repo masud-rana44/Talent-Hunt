@@ -11,38 +11,53 @@ const ContestDetails = () => {
 
   if (isLoading) return <Loader />;
 
+  const {
+    title,
+    type,
+    description,
+    instruction,
+    image,
+    prizeMoney,
+    creator,
+    winner,
+    deadline,
+    participationCount,
+  } = contest;
+
   return (
     <div>
       <Container>
         <div className="mt-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <img src={contest.image} alt="" />
+              <img src={image} alt="" />
             </div>
             <div className="p-2">
-              <h2 className="text-xl font-semibold">{contest.name}</h2>
-              <p>{contest.description}</p>
-              <div>
-                <span>{contest.attemptedCount}</span>
-                <span>{contest.type}</span>
+              <h2 className="text-2xl font-bold">{title}</h2>
+              <p>{description}</p>
+              <p>{instruction}</p>
+              <div className="flex flex-col font-medium">
+                <span>Total participants: {participationCount}</span>
+                <span>Type: {type}</span>
+                <span>Prize: {prizeMoney}</span>
               </div>
               <div>
-                <span>Deadline: {contest.deadline}</span>
+                <span>Deadline: {deadline}</span>
               </div>
-              <div>
-                <span>Creator: {contest.creator.name}</span>
-                <span>Role: {contest.creator.role}</span>
-              </div>
-              {contest.winner && (
-                <div>
-                  <span>Winner: {contest.winner.name}</span>
-                  <span>Prize: {contest.winner.prize}</span>
+              {creator && (
+                <div className="flex flex-col italic">
+                  <span>Creator: {creator?.name}</span>
+                  <span>Role: {creator?.email}</span>
                 </div>
               )}
-              <div>
-                <span>Tags: {contest.tags.join(", ")}</span>
-              </div>
-              <Countdown date={new Date(contest.deadline)}></Countdown>
+              {winner && (
+                <div>
+                  <span>Winner: {winner?.name}</span>
+                  <span>Prize: {winner?.image}</span>
+                </div>
+              )}
+
+              <Countdown date={new Date(deadline)}></Countdown>
             </div>
           </div>
         </div>

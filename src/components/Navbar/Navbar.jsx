@@ -4,10 +4,20 @@ import Container from "../Shared/Container";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { logOut } = useAuth();
   const { role } = useRole();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      toast.success("Logout successfully");
+    } catch (error) {
+      toast.error(error?.message || "Failed to logout");
+    }
+  };
 
   return (
     <header className="fixed w-full bg-white z-10 shadow-sm">
@@ -50,7 +60,7 @@ const Navbar = () => {
               </li>
               <li>
                 <button
-                  onClick={logOut}
+                  onClick={handleLogout}
                   className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                 >
                   Logout

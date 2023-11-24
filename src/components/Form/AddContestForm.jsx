@@ -19,30 +19,21 @@ const AddContestForm = () => {
   if (isLoading && !userData) return <p>Loading...</p>;
 
   const onSubmit = async (data) => {
-    const { name, description, price, instructions, type, deadline } = data;
-
     try {
       // upload image
       const imageUrl = await imageUpload(data.image[0]);
 
-      // create contest
-      const contestData = {
-        name,
-        description,
-        price: parseFloat(price),
-        instructions,
-        type,
-        deadline,
-        image: imageUrl,
-        status: "pending",
-        winner: null,
-        creatorId: userData._id,
-      };
-
       // save the contest to the database
-      const res = await saveContest(contestData);
+      const res = await saveContest({
+        ...data,
+        image: imageUrl,
+        priceMoney: parseFloat(data.prizeMoney),
+        creator: userData._id,
+      });
 
-      if (res.acknowledged) {
+      console.log(res);
+
+      if (res) {
         toast.success("Contest added successfully");
         navigate("/creator/contests");
       }
@@ -55,17 +46,17 @@ const AddContestForm = () => {
   return (
     <FormLayout onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-2xl font-bold text-center">Add New Contest</h1>
-      <FormRow label="Contest Name*" error={errors?.name?.message}>
+      <FormRow label="Title*" error={errors?.title?.message}>
         <input
           className="input"
           type="text"
           id="contestName"
-          {...register("name", {
-            required: "Contest Name is required",
+          {...register("title", {
+            required: "Contest title is required",
           })}
         />
       </FormRow>
-      <FormRow label="Contest Image*" error={errors?.image?.message}>
+      <FormRow label="Image*" error={errors?.image?.message}>
         <input
           className="input"
           type="file"
@@ -85,29 +76,29 @@ const AddContestForm = () => {
           })}
         />
       </FormRow>
-      <FormRow label="Price Money*" error={errors?.price?.message}>
+      <FormRow label="Price Money*" error={errors?.prizeMoney?.message}>
         <input
           className="input"
           type="number"
           step="any"
           id="priceMoney"
-          {...register("price", {
+          {...register("prizeMoney", {
             required: "Price Money is required",
             validate: (value) =>
               value > 0 || "Price Money must be greater than 0",
           })}
         />
       </FormRow>
-      <FormRow label="Instructions*" error={errors?.instructions?.message}>
+      <FormRow label="Instructions*" error={errors?.instruction?.message}>
         <textarea
           className="input"
-          id="instructions"
-          {...register("instructions", {
-            required: "Contest Instructions is required",
+          id="instruction"
+          {...register("instruction", {
+            required: "Contest instruction is required",
           })}
         />
       </FormRow>
-      <FormRow label="Contest Type*" error={errors?.type?.message}>
+      <FormRow label="Type*" error={errors?.type?.message}>
         <select className="input" id="type" {...register("type")}>
           <option value="business">Business Contest</option>
           <option value="medical">Medical Contest</option>
@@ -115,9 +106,9 @@ const AddContestForm = () => {
           <option value="gaming">Gaming</option>
         </select>
       </FormRow>
-      <FormRow label="Contest Deadline" error={errors?.deadline?.message}>
+      <FormRow label="Deadline" error={errors?.deadline?.message}>
         <input
-          type="date"
+          type="datetime-local"
           className="input"
           id="deadline"
           {...register("deadline", {
