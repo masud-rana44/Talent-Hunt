@@ -9,9 +9,12 @@ export const generateToken = async (email) => {
 // save the user in the database
 export const saveUser = async (user) => {
   const { data } = await axiosSecure.put(`/users/${user.email}`, {
-    email: user.email,
-    role: "guest",
+    name: user?.displayName,
+    email: user?.email,
+    image: user?.photoURL,
+    role: "user",
     status: "verified",
+    createdAt: Date.now(),
   });
 
   return data;

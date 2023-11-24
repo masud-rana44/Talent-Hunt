@@ -2,8 +2,11 @@ import MenuDropdown from "./MenuDropdown";
 import Logo from "../Logo";
 import Container from "../Container";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
+  const { logOut } = useAuth();
+
   return (
     <header className="fixed w-full bg-white z-10 shadow-sm">
       <div className="py-4 border-b-[1px]">
@@ -29,6 +32,14 @@ const Navbar = () => {
                 >
                   Contests
                 </Link>
+              </li>
+              <li>
+                <button
+                  onClick={logOut}
+                  className="block  px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                >
+                  Logout
+                </button>
               </li>
             </ul>
 

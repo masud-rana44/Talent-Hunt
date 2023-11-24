@@ -3,8 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { LiaSpinnerSolid } from "react-icons/lia";
 import useAuth from "../hooks/useAuth";
-
-// import { generateToken, saveUser } from "../../api/apiAuth";
+import { generateToken, saveUser } from "../api/apiAuth";
 
 const Login = () => {
   const { signIn, signInWithGoogle, loading } = useAuth();
@@ -13,44 +12,44 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || "/";
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //   const form = e.target;
-  //   const email = form.email.value;
-  //   const password = form.password.value;
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
-  //   try {
-  //     // create account
-  //     const { user } = await signIn(email, password);
+    try {
+      // create account
+      const { user } = await signIn(email, password);
 
-  //     // create token
-  //     await generateToken(user?.email);
+      // create token
+      await generateToken(user?.email);
 
-  //     toast.success("Login successful!");
-  //     navigate(from, { replace: true });
-  //   } catch (error) {
-  //     toast.error(error?.message || "Something went wrong!");
-  //   }
-  // };
+      toast.success("Login successful!");
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong!");
+    }
+  };
 
-  // const handleGoogleSignIn = async () => {
-  //   try {
-  //     // create account
-  //     const { user } = await signInWithGoogle();
+  const handleGoogleSignIn = async () => {
+    try {
+      // create account
+      const { user } = await signInWithGoogle();
 
-  //     // create token
-  //     await generateToken(user?.email);
+      // create token
+      await generateToken(user?.email);
 
-  //     // save the users data into database
-  //     await saveUser(user);
+      // save the users data into database
+      await saveUser(user);
 
-  //     toast.success("Login successful!");
-  //     navigate(from, { replace: true });
-  //   } catch (error) {
-  //     toast.error(error?.message || "Something went wrong!");
-  //   }
-  // };
+      toast.success("Login successful!");
+      navigate(from, { replace: true });
+    } catch (error) {
+      toast.error(error?.message || "Something went wrong!");
+    }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -64,7 +63,7 @@ const Login = () => {
         <form
           noValidate=""
           action=""
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-4">
@@ -126,7 +125,7 @@ const Login = () => {
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
         <div
-          // onClick={handleGoogleSignIn}
+          onClick={handleGoogleSignIn}
           className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
         >
           <FcGoogle size={32} />
