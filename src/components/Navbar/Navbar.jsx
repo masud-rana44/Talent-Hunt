@@ -1,9 +1,9 @@
 import MenuDropdown from "./MenuDropdown";
-import Logo from "../Logo";
-import Container from "../Container";
+import Logo from "../Shared/Logo";
+import Container from "../Shared/Container";
 import { Link } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
-import useRole from "../../../hooks/useRole";
+import useAuth from "../../hooks/useAuth";
+import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
   const { logOut } = useAuth();

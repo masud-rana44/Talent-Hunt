@@ -1,7 +1,7 @@
 import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 const MenuDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
