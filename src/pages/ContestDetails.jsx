@@ -1,17 +1,20 @@
 import Countdown from "react-countdown";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Container from "../components/Shared/Container";
 import useContestById from "../hooks/useContestById";
 import Loader from "../components/Shared/Loader";
+import useRole from "../hooks/useRole";
 
 const ContestDetails = () => {
   const { id } = useParams();
   const { contest, isLoading } = useContestById(id);
+  const { role, isLoading: isRoleLoading } = useRole();
 
-  if (isLoading) return <Loader />;
+  if (isLoading || isRoleLoading) return <Loader />;
 
   const {
+    _id,
     title,
     type,
     description,
@@ -58,6 +61,13 @@ const ContestDetails = () => {
               )}
 
               <Countdown date={new Date(deadline)}></Countdown>
+              {role === "user" && (
+                <Link to={`/contests/${_id}/register`} className="mt-6 block">
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Registration
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

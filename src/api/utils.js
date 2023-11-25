@@ -12,3 +12,10 @@ export const imageUpload = async (image) => {
   );
   return data.data.display_url;
 };
+
+export const getClientSecret = async () => {
+  const { data } = await axios.post(
+    `${import.meta.env.VITE_APP_API_URL}/payments/create`
+  );
+  return data.clientSecret;
+};

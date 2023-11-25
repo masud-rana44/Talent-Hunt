@@ -21,6 +21,7 @@ import UpdateContest from "../pages/creator/UpdateContest";
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
+import ContestRegistration from "../pages/ContestRegistration";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/contests/:id",
-        element: <ContestDetails />,
+        element: (
+          <PrivateRoute>
+            <ContestDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/contests/:contestId/register",
+        element: (
+          <PrivateRoute>
+            <ContestRegistration />
+          </PrivateRoute>
+        ),
       },
     ],
   },

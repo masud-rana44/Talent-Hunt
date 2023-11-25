@@ -36,6 +36,15 @@ export const updateContest = async (id, contest) => {
   return data;
 };
 
+// Add a submission to a contest
+export const addParticipant = async (contestId, userId) => {
+  const { data } = await axiosSecure.patch(
+    `/contests/${contestId}/participant/${userId}`,
+    {}
+  );
+  return data;
+};
+
 // Delete a contest in DB
 export const deleteContest = async (id) => {
   const { data } = await axiosSecure.delete(`/contests/${id}`);
