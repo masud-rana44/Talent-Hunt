@@ -16,10 +16,11 @@ import AddContest from "../pages/creator/AddContest";
 import ContestSubmitted from "../pages/creator/ContestSubmitted";
 import ManageUser from "../pages/admin/ManageUser";
 import ManageContest from "../pages/admin/ManageContest";
+import MyCreatedContest from "../pages/creator/MyCreatedContest";
+import UpdateContest from "../pages/creator/UpdateContest";
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
-import MyCreatedContest from "../pages/creator/MyCreatedContest";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: "contests/new",
         element: <AddContest />,
+      },
+      {
+        path: "contests/:id/update",
+        element: <UpdateContest />,
       },
       {
         path: "creator/contests",

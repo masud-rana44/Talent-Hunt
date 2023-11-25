@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllContests } from "../api/apiContests";
+import { getContestForAdmin } from "../api/apiContests";
 
-const useContests = () => {
+const useContestForAdmin = () => {
   const {
     data: contests = [],
     error,
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["contests"],
-    queryFn: getAllContests,
+    queryKey: ["contests", "admin"],
+    queryFn: getContestForAdmin,
   });
   return { contests, error, isLoading, refetch };
 };
 
-export default useContests;
+export default useContestForAdmin;
