@@ -24,6 +24,14 @@ export const getContestForAdmin = async () => {
   return data;
 };
 
+// Get contest by id for creator
+export const getContestByIdForCreator = async (contestId, creatorId) => {
+  const { data } = await axiosSecure.get(
+    `/contests/${contestId}/creator/${creatorId}`
+  );
+  return data;
+};
+
 // Get registered contests for user
 export const getRegisteredContests = async (userId) => {
   const { data } = await axiosSecure.get(`/contests/registered/${userId}`);
@@ -53,6 +61,15 @@ export const addParticipant = async (contestId, userId) => {
   const { data } = await axiosSecure.patch(
     `/contests/${contestId}/participant/${userId}`,
     {}
+  );
+  return data;
+};
+
+// Declare a winner for a contest
+export const declareWinner = async (contestId, winner) => {
+  const { data } = await axiosSecure.patch(
+    `/contests/${contestId}/winner`,
+    winner
   );
   return data;
 };

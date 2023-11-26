@@ -13,7 +13,6 @@ import MyRegisteredContest from "../pages/user/MyRegisteredContest";
 import MyWinningContest from "../pages/user/MyWinningContest";
 import MyProfile from "../pages/user/MyProfile";
 import AddContest from "../pages/creator/AddContest";
-import ContestSubmitted from "../pages/creator/ContestSubmitted";
 import ManageUser from "../pages/admin/ManageUser";
 import ManageContest from "../pages/admin/ManageContest";
 import MyCreatedContest from "../pages/creator/MyCreatedContest";
@@ -22,6 +21,7 @@ import UpdateContest from "../pages/creator/UpdateContest";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import ContestRegistration from "../pages/ContestRegistration";
+import ContestSubmission from "../pages/creator/ContestSubmission";
 
 const router = createBrowserRouter([
   {
@@ -90,8 +90,8 @@ const router = createBrowserRouter([
         element: <MyCreatedContest />,
       },
       {
-        path: "contests/submitted",
-        element: <ContestSubmitted />,
+        path: "contests/:id/submissions",
+        element: <ContestSubmission />,
       },
       // admin routes
       {

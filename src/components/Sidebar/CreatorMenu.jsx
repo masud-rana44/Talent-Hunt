@@ -1,6 +1,6 @@
 import { IoMdAddCircle } from "react-icons/io";
 import { BiSolidBookAdd } from "react-icons/bi";
-import { BsDatabaseFillAdd } from "react-icons/bs";
+// import { BsDatabaseFillAdd } from "react-icons/bs";
 
 import MenuItem from "./MenuItem";
 
@@ -17,11 +17,11 @@ const CreatorMenu = () => {
         icon={BiSolidBookAdd}
         address="/dashboard/creator/contests"
       />
-      <MenuItem
+      {/* <MenuItem
         label="Contest Submitted"
         icon={BsDatabaseFillAdd}
         address="/dashboard/contests/submitted"
-      />
+      /> */}
     </>
   );
 };

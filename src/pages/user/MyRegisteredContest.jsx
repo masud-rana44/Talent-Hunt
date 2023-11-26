@@ -31,13 +31,13 @@ const MyRegisteredContest = () => {
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
         >
-          <option value="deadline">Deadline</option>
+          <option value="upcoming">Upcoming</option>
           <option value="name">Name</option>
         </select>
       </div>
       {contests?.map((contest) => (
         <div
-          key={contest.id}
+          key={contest._id}
           className="border border-gray-300 rounded p-4 mb-4"
         >
           <h2 className="text-lg font-bold mb-2">{contest.title}</h2>

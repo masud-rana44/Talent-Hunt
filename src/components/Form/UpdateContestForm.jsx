@@ -1,4 +1,5 @@
-import { saveContest } from "../../api/apiContests";
+import { useState } from "react";
+import { updateContest } from "../../api/apiContests";
 import { imageUpload } from "../../api/utils";
 import useUser from "../../hooks/useUser";
 import FormLayout from "./FormLayout";
@@ -11,46 +12,49 @@ const UpdateContestForm = ({ contest }) => {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: {
       title: contest?.title,
       description: contest?.description,
-      prizeMoney: contest?.priceMoney,
       instruction: contest?.instruction,
       type: contest?.type,
-      deadline: contest?.deadline,
     },
   });
   const navigate = useNavigate();
   const { userData, isLoading } = useUser();
+  const [image, setImage] = useState(contest?.image);
 
   if (isLoading && !userData) return <p>Loading...</p>;
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
-      // upload image
-      // const imageUrl = await imageUpload(data.image[0]);
-      console.log(data);
-
       // save the contest to the database
-      // const res = await saveContest({
-      //   ...data,
-      //   image: imageUrl,
-      //   priceMoney: parseFloat(data.prizeMoney),
-      //   creator: userData._id,
-      // });
+      const res = await updateContest({
+        ...data,
+        image,
+        priceMoney: parseFloat(data.prizeMoney),
+        entryFee: parseFloat(data.entryFee),
+        creator: userData._id,
+      });
+      console.log(res);
 
-      // console.log(res);
-
-      // if (res) {
-      //   toast.success("Contest added successfully");
-      //   navigate("/dashboard/creator/contests");
-      // }
+      if (res) {
+        toast.success("Contest updated");
+        navigate("/dashboard/creator/contests");
+      }
     } catch (error) {
-      console.log(error);
       toast.error(error?.message || "Error adding contest");
+    }
+  };
+
+  const handleImageChange = async (e) => {
+    try {
+      const imageUrl = await imageUpload(e.target.files[0]);
+      setImage(imageUrl);
+    } catch (error) {
+      toast.error(error?.message || "Error uploading image");
     }
   };
 
@@ -67,17 +71,16 @@ const UpdateContestForm = ({ contest }) => {
           })}
         />
       </FormRow>
-      <FormRow label="Image*" error={errors?.image?.message}>
+      <FormRow label="Image*">
         <input
-          className="input"
+          className="input "
           type="file"
           accept="image/*"
+          onChange={handleImageChange}
           id="image"
-          {...register("image", {
-            required: "Contest Image is required",
-          })}
         />
       </FormRow>
+      <img src={image} className="h-40 object-contain" />
       <FormRow label="Description*" error={errors?.description?.message}>
         <textarea
           className="input"
@@ -91,13 +94,27 @@ const UpdateContestForm = ({ contest }) => {
         <input
           className="input"
           type="number"
-          // step="any"
           id="priceMoney"
-          defaultValue={contest?.priceMoney}
+          step="any"
+          defaultValue={contest?.prizeMoney}
           {...register("prizeMoney", {
             required: "Price Money is required",
             validate: (value) =>
               value > 0 || "Price Money must be greater than 0",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Entry fee*" error={errors?.entryFee?.message}>
+        <input
+          className="input"
+          type="number"
+          step="any"
+          id="entryFee"
+          defaultValue={contest?.entryFee}
+          {...register("entryFee", {
+            required: "Entry fee is required",
+            validate: (value) =>
+              value > 0 || "Entry fee must be greater than 0",
           })}
         />
       </FormRow>
@@ -123,8 +140,10 @@ const UpdateContestForm = ({ contest }) => {
           type="datetime-local"
           className="input"
           id="deadline"
-          defaultValue={contest?.deadline}
-          {...register("deadline", {
+          defaultValue={new Date(contest?.deadline)
+            .toISOString()
+            .substring(0, 16)}
+          {...register("deadline*", {
             required: "Contest Deadline is required",
             validate: (value) =>
               new Date(value) > new Date() ||

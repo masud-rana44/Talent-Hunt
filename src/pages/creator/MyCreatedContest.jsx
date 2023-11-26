@@ -66,9 +66,11 @@ const MyCreatedContest = () => {
                 ) : null}
               </td>
               <td className="border px-4 py-2">
-                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                  See Submissions
-                </button>
+                <Link to={`/dashboard/contests/${contest._id}/submissions`}>
+                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    See Submissions
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}

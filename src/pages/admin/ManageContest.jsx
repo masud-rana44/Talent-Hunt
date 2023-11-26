@@ -2,6 +2,7 @@ import Loader from "../../components/Shared/Loader";
 import { deleteContest, updateContest } from "../../api/apiContests";
 import toast from "react-hot-toast";
 import useContestForAdmin from "../../hooks/useContestsForAdmin";
+import { Link } from "react-router-dom";
 
 const ManageContest = () => {
   const { contests, isLoading, refetch } = useContestForAdmin();
@@ -30,7 +31,7 @@ const ManageContest = () => {
 
   return (
     <div className="container mx-auto">
-      <table className="min-w-full divide-y divide-gray-200">
+      <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -70,6 +71,11 @@ const ManageContest = () => {
                 <div className="text-sm text-gray-900">{contest?.status}</div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
+                <Link to={`/dashboard/contests/${contest._id}/update`}>
+                  <button className="px-4 py-2 mr-2 text-sm font-medium text-blue-500 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white">
+                    Edit
+                  </button>
+                </Link>
                 <button
                   className="px-4 py-2 mr-2 text-sm font-medium text-red-500 bg-transparent border border-red-500 rounded hover:bg-red-500 hover:text-white"
                   onClick={() => handleDelete(contest._id)}
