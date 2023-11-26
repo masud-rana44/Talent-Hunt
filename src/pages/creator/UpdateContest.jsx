@@ -5,13 +5,13 @@ import Loader from "../../components/Shared/Loader";
 
 const UpdateContest = () => {
   const { id } = useParams();
-  const { contest, isLoading } = useContestById(id);
+  const { contest, isLoading, refetch } = useContestById(id);
 
   if (isLoading) return <Loader />;
 
   return (
     <div>
-      <UpdateContestForm contest={contest} />
+      <UpdateContestForm contest={contest} refetch={refetch} />
     </div>
   );
 };

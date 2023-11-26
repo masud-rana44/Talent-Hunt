@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { updateContest } from "../../api/apiContests";
 import { imageUpload } from "../../api/utils";
-import useUser from "../../hooks/useUser";
 import FormLayout from "./FormLayout";
 import FormRow from "./FormRow";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const UpdateContestForm = ({ contest }) => {
+const UpdateContestForm = ({ contest, refetch }) => {
   const {
     register,
     handleSubmit,
@@ -22,30 +21,28 @@ const UpdateContestForm = ({ contest }) => {
     },
   });
   const navigate = useNavigate();
-  const { userData, isLoading } = useUser();
   const [image, setImage] = useState(contest?.image);
+  const { state } = useLocation();
 
-  if (isLoading && !userData) return <p>Loading...</p>;
+  const from = state?.from?.pathname || "/dashboard";
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       // save the contest to the database
-      const res = await updateContest({
+      const res = await updateContest(contest._id, {
         ...data,
         image,
         priceMoney: parseFloat(data.prizeMoney),
         entryFee: parseFloat(data.entryFee),
-        creator: userData._id,
       });
-      console.log(res);
 
       if (res) {
         toast.success("Contest updated");
-        navigate("/dashboard/creator/contests");
+        refetch();
+        navigate(from);
       }
     } catch (error) {
-      toast.error(error?.message || "Error adding contest");
+      toast.error(error?.message || "Error updating contest");
     }
   };
 
@@ -135,7 +132,7 @@ const UpdateContestForm = ({ contest }) => {
           <option value="gaming">Gaming</option>
         </select>
       </FormRow>
-      <FormRow label="Deadline" error={errors?.deadline?.message}>
+      <FormRow label="Deadline*" error={errors?.deadline?.message}>
         <input
           type="datetime-local"
           className="input"
@@ -143,11 +140,11 @@ const UpdateContestForm = ({ contest }) => {
           defaultValue={new Date(contest?.deadline)
             .toISOString()
             .substring(0, 16)}
-          {...register("deadline*", {
+          {...register("deadline", {
             required: "Contest Deadline is required",
-            validate: (value) =>
-              new Date(value) > new Date() ||
-              "Contest Deadline must be greater than today",
+            // validate: (value) =>
+            //   new Date(value) > new Date() ||
+            //   "Contest Deadline must be greater than today",
           })}
         />
       </FormRow>

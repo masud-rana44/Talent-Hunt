@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useContestByIdForCreator from "../../hooks/useContestByIdForCreator";
 import Loader from "../../components/Shared/Loader";
@@ -8,14 +7,17 @@ import toast from "react-hot-toast";
 const ContestSubmission = () => {
   const { id } = useParams();
   const { contest, isLoading } = useContestByIdForCreator(id);
-  const [winner, setWinner] = useState("");
 
   const handleDeclareWinner = async (participantId) => {
     try {
       await declareWinner(id, { winner: participantId });
       toast.success("Winner declared");
     } catch (error) {
-      toast.error(error?.message || "Something went wrong");
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong"
+      );
     }
   };
 
@@ -23,7 +25,13 @@ const ContestSubmission = () => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-4">{contest?.name}</h1>
+      <h1 className="text-2xl font-bold mb-1">{contest?.title}</h1>
+      <div className="flex items-center justify-between text-gray-600 font-medium mb-4">
+        <h4>{contest?.participants?.length} Participants</h4>
+        <h4>
+          Deadline: {new Date(contest?.deadline).toLocaleDateString("en-IN")}
+        </h4>
+      </div>
       <table className="w-full border-collapse">
         <thead>
           <tr>
@@ -51,19 +59,13 @@ const ContestSubmission = () => {
                 {contest.winner ? (
                   <div>{contest.winner.name}</div>
                 ) : (
-                  contest.deadline < new Date() && (
-                    <button
-                      className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${
-                        winner === participant.id
-                          ? "opacity-50 cursor-not-allowed"
-                          : ""
-                      }`}
-                      onClick={() => handleDeclareWinner(participant._id)}
-                      disabled={winner === participant.id}
-                    >
-                      Declare Winner
-                    </button>
-                  )
+                  <button
+                    className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`}
+                    onClick={() => handleDeclareWinner(participant._id)}
+                    // disabled={contest.winner.name}
+                  >
+                    Declare Winner
+                  </button>
                 )}
               </td>
             </tr>

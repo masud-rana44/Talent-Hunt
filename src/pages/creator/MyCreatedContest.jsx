@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { deleteContest } from "../../api/apiContests";
 import Loader from "../../components/Shared/Loader";
 import useContestByCreator from "../../hooks/useContestByCreator";
@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 const MyCreatedContest = () => {
   const { contests, isLoading, refetch } = useContestByCreator();
+  const location = useLocation();
 
   if (isLoading) return <Loader />;
 
@@ -34,7 +35,14 @@ const MyCreatedContest = () => {
         <tbody>
           {contests.map((contest) => (
             <tr key={contest._id}>
-              <td className="border px-4 py-2 font-medium">{contest?.title}</td>
+              <td className="border px-4 py-2 font-medium">
+                <Link
+                  to={`/contests/${contest._id}`}
+                  className="text-sm text-gray-900 font-medium hover:underline hover:text-blue-700"
+                >
+                  {contest?.title}
+                </Link>
+              </td>
               <td className="border h-full px-4 py-2 ">
                 <span
                   className={`px-2 py-[2px] ${
@@ -48,7 +56,10 @@ const MyCreatedContest = () => {
               </td>
               <td className="border px-4 py-2">
                 {contest?.status === "pending" ? (
-                  <Link to={`/dashboard/contests/${contest._id}/update`}>
+                  <Link
+                    to={`/dashboard/contests/${contest._id}/update`}
+                    state={{ from: location }}
+                  >
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                       Edit
                     </button>
@@ -66,11 +77,13 @@ const MyCreatedContest = () => {
                 ) : null}
               </td>
               <td className="border px-4 py-2">
-                <Link to={`/dashboard/contests/${contest._id}/submissions`}>
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    See Submissions
-                  </button>
-                </Link>
+                {contest.status === "accepted" && (
+                  <Link to={`/dashboard/contests/${contest._id}/submissions`}>
+                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                      See Submissions
+                    </button>
+                  </Link>
+                )}
               </td>
             </tr>
           ))}

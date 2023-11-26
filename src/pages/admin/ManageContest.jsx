@@ -2,10 +2,11 @@ import Loader from "../../components/Shared/Loader";
 import { deleteContest, updateContest } from "../../api/apiContests";
 import toast from "react-hot-toast";
 import useContestForAdmin from "../../hooks/useContestsForAdmin";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ManageContest = () => {
   const { contests, isLoading, refetch } = useContestForAdmin();
+  const location = useLocation();
 
   const handleDelete = async (contestId) => {
     try {
@@ -17,11 +18,11 @@ const ManageContest = () => {
     }
   };
 
-  const handleConfirm = async (contestId) => {
+  const handleToggle = async (contestId, status) => {
     try {
-      await updateContest(contestId, { status: "accepted" });
+      await updateContest(contestId, { status });
       refetch();
-      toast.success("Contest accepted");
+      toast.success("Status updated");
     } catch (error) {
       toast.error(error?.message || "Something went wrong");
     }
@@ -38,7 +39,7 @@ const ManageContest = () => {
               Contest Name
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Start Date
+              Deadline
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Creator Name
@@ -55,12 +56,17 @@ const ManageContest = () => {
           {contests.map((contest) => (
             <tr key={contest._id}>
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-900 font-medium">
+                <Link
+                  to={`/contests/${contest._id}`}
+                  className="text-sm text-gray-900 font-medium hover:underline hover:text-blue-700"
+                >
                   {contest?.title}
-                </div>
+                </Link>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-900">{contest?.deadline}</div>
+                <div className="text-sm text-gray-900">
+                  {new Date(contest?.deadline).toLocaleDateString()}
+                </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-900">
@@ -68,10 +74,21 @@ const ManageContest = () => {
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-900">{contest?.status}</div>
+                <span
+                  className={`px-2 py-[2px] ${
+                    contest?.status === "accepted"
+                      ? "bg-green-400"
+                      : "bg-red-400"
+                  } rounded-xl text-white font-medium text-sm flex items-center justify-center`}
+                >
+                  {contest?.status}
+                </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <Link to={`/dashboard/contests/${contest._id}/update`}>
+                <Link
+                  to={`/dashboard/contests/${contest._id}/update`}
+                  state={{ from: location }}
+                >
                   <button className="px-4 py-2 mr-2 text-sm font-medium text-blue-500 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white">
                     Edit
                   </button>
@@ -84,9 +101,14 @@ const ManageContest = () => {
                 </button>
                 <button
                   className="px-4 py-2 text-sm font-medium text-green-500 bg-transparent border border-green-500 rounded hover:bg-green-500 hover:text-white"
-                  onClick={() => handleConfirm(contest._id)}
+                  onClick={() =>
+                    handleToggle(
+                      contest._id,
+                      contest.status === "pending" ? "accepted" : "pending"
+                    )
+                  }
                 >
-                  Confirm
+                  {contest.status === "pending" ? "Accept" : "Pending"}
                 </button>
               </td>
             </tr>

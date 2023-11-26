@@ -6,11 +6,12 @@ const useContestById = (id) => {
     data: contest = {},
     error,
     isLoading,
+    refetch,
   } = useQuery({
     queryKey: ["contestById", id],
     queryFn: async () => await getContestById(id),
   });
-  return { contest, error, isLoading };
+  return { contest, error, isLoading, refetch };
 };
 
 export default useContestById;

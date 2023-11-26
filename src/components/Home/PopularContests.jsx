@@ -1,11 +1,11 @@
-import useContests from "../../hooks/useContests";
+import usePopularContests from "../../hooks/usePopularContests";
 import Container from "../Shared/Container";
 import Loader from "../Shared/Loader";
 import SectionHeading from "../Shared/SectionHeading";
 import ContestCard from "./ContestCard";
 
 const PopularContests = () => {
-  const { contests, isLoading } = useContests();
+  const { contests, isLoading } = usePopularContests();
 
   if (isLoading) return <Loader />;
 

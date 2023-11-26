@@ -6,6 +6,12 @@ export const getAllContests = async () => {
   return data;
 };
 
+// Get popular contests
+export const getPopularContests = async () => {
+  const { data } = await axiosPublic.get("/contests/popular");
+  return data;
+};
+
 // Get contest by id
 export const getContestById = async (id) => {
   const { data } = await axiosSecure.get(`/contests/${id}`);
