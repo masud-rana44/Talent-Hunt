@@ -39,14 +39,14 @@ export const getContestByIdForCreator = async (contestId, creatorId) => {
 };
 
 // Get registered contests for user
-export const getRegisteredContests = async (userId) => {
-  const { data } = await axiosSecure.get(`/contests/registered/${userId}`);
+export const getRegisteredContests = async () => {
+  const { data } = await axiosSecure.get("/contests/registered");
   return data;
 };
 
 // Get winning contests for user
-export const getWinningContests = async (userId) => {
-  const { data } = await axiosSecure.get(`/contests/winning/${userId}`);
+export const getWinningContests = async () => {
+  const { data } = await axiosSecure.get("/contests/winning");
   return data;
 };
 
