@@ -1,13 +1,24 @@
 import MenuItem from "./MenuItem";
-import { BsFingerprint } from "react-icons/bs";
+import { FaCashRegister, FaGrinWink } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
 
 const UsersMenu = () => {
   return (
     <>
       <MenuItem
-        icon={BsFingerprint}
-        label="My Bookings"
-        address="my-bookings"
+        label="My Registered Contests"
+        icon={FaCashRegister}
+        address="/dashboard/registered-contests"
+      />
+      <MenuItem
+        label="My Winning Contests"
+        icon={FaGrinWink}
+        address="/dashboard/winning-contests"
+      />
+      <MenuItem
+        label="My Profile"
+        icon={CgProfile}
+        address="/dashboard/profile"
       />
     </>
   );

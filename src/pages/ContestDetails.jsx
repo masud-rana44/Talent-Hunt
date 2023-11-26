@@ -33,19 +33,21 @@ const ContestDetails = () => {
         <div className="mt-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <img src={image} alt="" />
+              <img src={image} alt="" className="w-full" />
             </div>
             <div className="p-2">
               <h2 className="text-2xl font-bold">{title}</h2>
               <p>{description}</p>
               <p>{instruction}</p>
               <div className="flex flex-col font-medium">
-                <span>Total participants: {participationCount}</span>
-                <span>Type: {type}</span>
-                <span>Prize: {prizeMoney}</span>
+                <span className="mb-2">
+                  Total participants: {participationCount}
+                </span>
+                <span className="mb-2">Type: {type}</span>
+                <span className="mb-2">Prize: {prizeMoney}</span>
               </div>
               <div>
-                <span>Deadline: {deadline}</span>
+                <span className="mb-2">Deadline: {deadline}</span>
               </div>
               {creator && (
                 <div className="flex flex-col italic">
@@ -61,13 +63,13 @@ const ContestDetails = () => {
               )}
 
               <Countdown date={new Date(deadline)}></Countdown>
-              {role === "user" && (
-                <Link to={`/contests/${_id}/register`} className="mt-6 block">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Registration
-                  </button>
-                </Link>
-              )}
+
+              <Link
+                to={`/contests/${_id}/register`}
+                className="mt-6 block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Registration
+              </Link>
             </div>
           </div>
         </div>

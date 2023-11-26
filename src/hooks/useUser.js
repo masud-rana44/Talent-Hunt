@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
-import { getUser } from "../api/apiAuth";
+import { getUser } from "../api/apiUsers";
 
-const useRole = () => {
+const useUser = () => {
   const { user, loading } = useAuth();
 
   const {
@@ -10,8 +10,8 @@ const useRole = () => {
     error,
     isLoading,
   } = useQuery({
-    disabled: loading || !user,
-    queryKey: ["user", user?.email],
+    disabled: loading || !user?.email,
+    queryKey: ["userData", user?.email],
     queryFn: async () => await getUser(user?.email),
   });
 
@@ -22,4 +22,4 @@ const useRole = () => {
   };
 };
 
-export default useRole;
+export default useUser;

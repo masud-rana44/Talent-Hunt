@@ -28,10 +28,9 @@ const AddContestForm = () => {
         ...data,
         image: imageUrl,
         priceMoney: parseFloat(data.prizeMoney),
+        entryFee: parseFloat(data.entryFee),
         creator: userData._id,
       });
-
-      console.log(res);
 
       if (res) {
         toast.success("Contest added successfully");
@@ -83,9 +82,22 @@ const AddContestForm = () => {
           step="any"
           id="priceMoney"
           {...register("prizeMoney", {
-            required: "Price Money is required",
+            required: "Price money is required",
             validate: (value) =>
-              value > 0 || "Price Money must be greater than 0",
+              value > 0 || "Price money must be greater than 0",
+          })}
+        />
+      </FormRow>
+      <FormRow label="Entry fee*" error={errors?.entryFee?.message}>
+        <input
+          className="input"
+          type="number"
+          step="any"
+          id="entryFee"
+          {...register("entryFee", {
+            required: "Entry fee is required",
+            validate: (value) =>
+              value > 0 || "Entry fee must be greater than 0",
           })}
         />
       </FormRow>

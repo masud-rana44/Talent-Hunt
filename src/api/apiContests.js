@@ -8,19 +8,31 @@ export const getAllContests = async () => {
 
 // Get contest by id
 export const getContestById = async (id) => {
-  const { data } = await axiosPublic.get(`/contests/${id}`);
+  const { data } = await axiosSecure.get(`/contests/${id}`);
   return data;
 };
 
 // Get contest by creator
 export const getContestByCreator = async (creatorId) => {
-  const { data } = await axiosPublic.get(`/contests/creator/${creatorId}`);
+  const { data } = await axiosSecure.get(`/contests/creator/${creatorId}`);
   return data;
 };
 
 // Get contest for admin
 export const getContestForAdmin = async () => {
   const { data } = await axiosSecure.get("/contests/admin");
+  return data;
+};
+
+// Get registered contests for user
+export const getRegisteredContests = async (userId) => {
+  const { data } = await axiosSecure.get(`/contests/registered/${userId}`);
+  return data;
+};
+
+// Get winning contests for user
+export const getWinningContests = async (userId) => {
+  const { data } = await axiosSecure.get(`/contests/winning/${userId}`);
   return data;
 };
 
