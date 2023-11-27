@@ -21,7 +21,7 @@ const Header = ({ handleToggle }) => {
           <span className="font-medium">{user?.displayName.split(" ")[0]}</span>
         </li>
         <li>
-          <Button type="icon" onClick={() => navigate("/account")}>
+          <Button type="icon" onClick={() => navigate("/dashboard/profile")}>
             <HiOutlineUser size={21} />
           </Button>
         </li>

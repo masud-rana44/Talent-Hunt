@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import Table from "../Table";
 import { Link, useLocation } from "react-router-dom";
 import { deleteContest, updateContest } from "../../../api/apiContests";
+import ConfirmDelete from "../../Shared/ConfirmDelete";
 
 const ContestRow = ({ item: contest, refetch }) => {
   const location = useLocation();
@@ -54,7 +55,7 @@ const ContestRow = ({ item: contest, refetch }) => {
           {contest?.status}
         </span>
       </div>
-      <div>
+      <div className="flex items-center space-x-1">
         <Link
           to={`/dashboard/contests/${contest._id}/update`}
           state={{ from: location }}
@@ -63,12 +64,17 @@ const ContestRow = ({ item: contest, refetch }) => {
             Edit
           </button>
         </Link>
-        <button
-          className="px-4 py-2 mr-2 text-sm font-medium text-red-500 bg-transparent border border-red-500 rounded hover:bg-red-500 hover:text-white"
-          onClick={() => handleDelete(contest._id)}
+        <ConfirmDelete
+          resourceName="Contest"
+          onConfirm={() => handleDelete(contest._id)}
         >
-          Delete
-        </button>
+          <button
+            className="px-4 py-2 mr-2 text-sm font-medium text-red-500 bg-transparent border border-red-500 rounded hover:bg-red-500 hover:text-white"
+            // onClick={() => handleDelete(contest._id)}
+          >
+            Delete
+          </button>
+        </ConfirmDelete>
         <button
           className="px-4 py-2 text-sm font-medium text-green-500 bg-transparent border border-green-500 rounded hover:bg-green-500 hover:text-white"
           onClick={() =>

@@ -3,16 +3,16 @@ import useAuth from "./useAuth";
 import { getUser } from "../api/apiUsers";
 
 const useRole = () => {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
   const { data, error, isLoading } = useQuery({
-    disabled: loading || !user?.email,
+    disabled: !user?.email,
     queryKey: ["role", user?.email],
     queryFn: async () => await getUser(user?.email),
   });
 
   return {
-    role: data?.role || "user",
+    role: data?.role,
     error,
     isLoading,
   };

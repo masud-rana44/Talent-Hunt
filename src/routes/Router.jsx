@@ -19,11 +19,12 @@ import MyCreatedContest from "../pages/creator/MyCreatedContest";
 import UpdateContest from "../pages/creator/UpdateContest";
 import ContestRegistration from "../pages/ContestRegistration";
 import ContestSubmission from "../pages/creator/ContestSubmission";
+import TaskSubmission from "../pages/user/TaskSubmission";
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
-import TaskSubmission from "../pages/user/TaskSubmission";
-import TestPage from "../pages/admin/TestPage";
+import AdminRoute from "./AdminRoute";
+import CreatorRoute from "./CreatorRoute";
 
 const router = createBrowserRouter([
   {
@@ -85,7 +86,11 @@ const router = createBrowserRouter([
       // creator routes
       {
         path: "contests/new",
-        element: <AddContest />,
+        element: (
+          <CreatorRoute>
+            <AddContest />
+          </CreatorRoute>
+        ),
       },
       {
         path: "contests/:id/update",
@@ -102,15 +107,19 @@ const router = createBrowserRouter([
       // admin routes
       {
         path: "users",
-        element: <ManageUser />,
+        element: (
+          <AdminRoute>
+            <ManageUser />
+          </AdminRoute>
+        ),
       },
       {
         path: "contests",
-        element: <ManageContest />,
-      },
-      {
-        path: "test",
-        element: <TestPage />,
+        element: (
+          <AdminRoute>
+            <ManageContest />
+          </AdminRoute>
+        ),
       },
     ],
   },
