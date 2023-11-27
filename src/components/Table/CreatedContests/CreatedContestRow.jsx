@@ -3,8 +3,9 @@ import Table from "../Table";
 import { Link, useLocation } from "react-router-dom";
 import { deleteContest, updateContest } from "../../../api/apiContests";
 import ConfirmDelete from "../../Shared/ConfirmDelete";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
-const ContestRow = ({ item: contest, refetch }) => {
+const CreatedContestRow = ({ item: contest, refetch }) => {
   const location = useLocation();
 
   const handleDelete = async (contestId) => {
@@ -42,11 +43,7 @@ const ContestRow = ({ item: contest, refetch }) => {
           {new Date(contest?.deadline).toLocaleDateString()}
         </div>
       </div>
-      <div className="font-medium font-sono text-gray-700">
-        <div className="text-sm text-gray-900">{contest?.creator?.name}</div>
-      </div>
       <div className="font-sono">
-        {" "}
         <span
           className={`px-2 py-[2px] ${
             contest?.status === "accepted" ? "bg-green-400" : "bg-red-400"
@@ -55,37 +52,42 @@ const ContestRow = ({ item: contest, refetch }) => {
           {contest?.status}
         </span>
       </div>
+      <div className="font-medium font-sono text-gray-700">
+        <div className="text-sm text-gray-900">
+          {contest?.status === "accepted" ? contest?.participants.length : "-"}
+        </div>
+      </div>
+
       <div className="flex items-center space-x-1">
-        <Link
-          to={`/dashboard/contests/${contest._id}/update`}
-          state={{ from: location }}
-        >
-          <button className="px-4 py-2 mr-2 text-sm font-medium text-blue-500 bg-transparent border border-blue-500 rounded hover:bg-blue-500 hover:text-white">
-            Edit
-          </button>
-        </Link>
-        <ConfirmDelete
-          resourceName="Contest"
-          onConfirm={() => handleDelete(contest._id)}
-        >
-          <button className="px-4 py-2 mr-2 text-sm font-medium text-red-500 bg-transparent border border-red-500 rounded hover:bg-red-500 hover:text-white">
-            Delete
-          </button>
-        </ConfirmDelete>
-        <button
-          className="px-4 py-2 text-sm font-medium text-green-500 bg-transparent border border-green-500 rounded hover:bg-green-500 hover:text-white"
-          onClick={() =>
-            handleToggle(
-              contest._id,
-              contest.status === "pending" ? "accepted" : "pending"
-            )
-          }
-        >
-          {contest.status === "pending" ? "Accept" : "Pending"}
-        </button>
+        {contest?.status === "pending" ? (
+          <div className="flex items-center gap-x-3">
+            <Link
+              to={`/dashboard/contests/${contest._id}/update`}
+              state={{ from: location }}
+            >
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <FaRegEdit />
+              </button>
+            </Link>
+            <ConfirmDelete
+              resourceName="Contest"
+              onConfirm={() => handleDelete(contest._id)}
+            >
+              <button className="px-4 py-2 mr-2 text-sm font-medium text-red-500 bg-transparent border border-red-500 rounded hover:bg-red-500 hover:text-white">
+                <FaRegTrashAlt />
+              </button>
+            </ConfirmDelete>
+          </div>
+        ) : (
+          <Link to={`/dashboard/contests/${contest._id}/submissions`}>
+            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+              See Details
+            </button>
+          </Link>
+        )}
       </div>
     </Table.Row>
   );
 };
 
-export default ContestRow;
+export default CreatedContestRow;

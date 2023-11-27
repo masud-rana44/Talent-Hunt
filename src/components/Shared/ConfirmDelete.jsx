@@ -40,8 +40,7 @@ export default function ConfirmDelete({ children, onConfirm, resourceName }) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this booking permanently? This
-            action cannot be undone.
+            {`Are you sure you want to delete this ${resourceName.toLowerCase()} permanently? This action cannot be undone.`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

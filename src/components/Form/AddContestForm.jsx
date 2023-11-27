@@ -48,11 +48,11 @@ const AddContestForm = () => {
 
   return (
     <FormLayout onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-2xl text-gray-700 font-bold text-center">
+      <h1 className="text-2xl mb-10 text-gray-700 font-bold text-center">
         Add New Contest
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="my-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-10">
+        <div>
           <FormRow label="Title" required error={errors?.title?.message}>
             <input
               className="input"
@@ -102,7 +102,7 @@ const AddContestForm = () => {
             />
           </FormRow>
         </div>
-        <div className="my-4">
+        <div>
           <FormRow
             label="Price Money"
             required

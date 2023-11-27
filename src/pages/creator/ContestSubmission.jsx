@@ -53,7 +53,18 @@ const ContestSubmission = () => {
                 {participant.email}
               </td>
               <td className="border border-gray-300 px-4 py-2">
-                {participant.task}
+                {participant.task ? (
+                  <a
+                    href={participant?.task}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:underline text-blue-500"
+                  >
+                    {participant?.task?.slice(0, 28)}...
+                  </a>
+                ) : (
+                  <p className="text-sm text-red-600">No task submitted</p>
+                )}
               </td>
               <td className="border border-gray-300 px-4 py-2">
                 {contest.winner ? (
@@ -62,7 +73,7 @@ const ContestSubmission = () => {
                   <button
                     className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`}
                     onClick={() => handleDeclareWinner(participant._id)}
-                    // disabled={contest.winner.name}
+                    disabled={contest?.winner?.name}
                   >
                     Declare Winner
                   </button>

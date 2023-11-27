@@ -19,8 +19,9 @@ export const getContestById = async (id) => {
 };
 
 // Get contest by creator
-export const getContestByCreator = async (creatorId) => {
-  const { data } = await axiosSecure.get(`/contests/creator/${creatorId}`);
+export const getContestByCreator = async (creatorId, page) => {
+    const limit = import.meta.env.VITE_APP_PAGE_SIZE || 5;
+  const { data } = await axiosSecure.get(`/contests/creator/${creatorId}?page=${page}&limit=${limit}`);
   return data;
 };
 
