@@ -25,8 +25,11 @@ export const getContestByCreator = async (creatorId) => {
 };
 
 // Get contest for admin
-export const getContestForAdmin = async () => {
-  const { data } = await axiosSecure.get("/contests/admin");
+export const getContestForAdmin = async (page) => {
+  const limit = import.meta.env.VITE_APP_PAGE_SIZE || 5;
+  const { data } = await axiosSecure.get(
+    `/contests/admin?page=${page}&limit=${limit}`
+  );
   return data;
 };
 
