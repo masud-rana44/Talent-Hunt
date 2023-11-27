@@ -1,18 +1,13 @@
 import MenuItem from "./MenuItem";
-import { FaUserShield } from "react-icons/fa";
-import { SiNginxproxymanager } from "react-icons/si";
+import { HiOutlineCalendarDays, HiOutlineUser } from "react-icons/hi2";
 
 const AdminMenu = () => {
   return (
     <>
+      <MenuItem label="Users" icon={HiOutlineUser} address="/dashboard/users" />
       <MenuItem
-        label="Manage Users"
-        icon={FaUserShield}
-        address="/dashboard/users"
-      />
-      <MenuItem
-        label="Manage Contests"
-        icon={SiNginxproxymanager}
+        label="Contests"
+        icon={HiOutlineCalendarDays}
         address="/dashboard/contests"
       />
     </>

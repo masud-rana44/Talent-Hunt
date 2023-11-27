@@ -3,8 +3,9 @@ import useAuth from "../../hooks/useAuth";
 import Button from "./Button";
 import Logout from "./Logout";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineBars } from "react-icons/ai";
 
-const Header = () => {
+const Header = ({ handleToggle }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -26,6 +27,11 @@ const Header = () => {
         </li>
         <li>
           <Logout />
+        </li>
+        <li className="md:hidden">
+          <Button onClick={handleToggle} type="icon">
+            <AiOutlineBars size={21} />
+          </Button>
         </li>
       </ul>
     </div>

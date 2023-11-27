@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.body {
+  font-family: "Poppins", sans-serif;
+}
+
 @layer components {
   .input {
     @apply block w-full px-4 py-2 text-sm  rounded-sm border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400;
