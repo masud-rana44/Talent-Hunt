@@ -23,6 +23,7 @@ import ContestSubmission from "../pages/creator/ContestSubmission";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import TaskSubmission from "../pages/user/TaskSubmission";
+import TestPage from "../pages/admin/TestPage";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path: "contests",
         element: <ManageContest />,
+      },
+      {
+        path: "test",
+        element: <TestPage />,
       },
     ],
   },

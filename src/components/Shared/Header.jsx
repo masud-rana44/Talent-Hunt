@@ -10,7 +10,7 @@ const Header = ({ handleToggle }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-[60px] fixed top-0 right-0 px-12  border-b flex justify-end">
+    <div className="w-full h-[60px] fixed top-0 right-0 px-12 border-b flex justify-end bg-white z-10">
       <ul className="flex items-center gap-x-4">
         <li className="flex  items-center gap-x-2">
           <img

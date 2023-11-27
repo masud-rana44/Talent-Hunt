@@ -3,7 +3,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 const PAGE_SIZE = Number(import.meta.env.VITE_APP_PAGE_SIZE);
 
-function Pagination({ count }) {
+function Pagination({ count = 0 }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;
 
@@ -37,7 +37,7 @@ function Pagination({ count }) {
         of <span className="font-semibold">{count}</span> results
       </p>
 
-      <div className="flex gap-1">
+      <div className="flex gap-2">
         <button
           disabled={currentPage === 1}
           onClick={prevPage}
@@ -45,7 +45,7 @@ function Pagination({ count }) {
             currentPage === 1
               ? "bg-gray-50 text-gray-500"
               : "bg-blue-600 text-white"
-          } px-4 py-2 rounded-md font-semibold flex items-center transition-all duration-300 hover:bg-blue-600 hover:text-white`}
+          } px-2 py-1 text-sm rounded-md font-medium flex items-center transition-all duration-300 hover:bg-blue-600 hover:text-white`}
         >
           <HiChevronLeft className="h-6 w-6" />
           <span>Previous</span>

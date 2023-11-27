@@ -1,7 +1,8 @@
 import { axiosSecure } from ".";
 
-export const getAllUsers = async () => {
-  const { data } = await axiosSecure.get("/users");
+export const getAllUsers = async (page) => {
+  const limit = import.meta.env.VITE_APP_PAGE_SIZE || 5;
+  const { data } = await axiosSecure.get(`/users?page=${page}&limit=${limit}`);
   return data;
 };
 

@@ -14,7 +14,7 @@ const DashboardLayout = () => {
     <div className="relative min-h-screen">
       <Header handleToggle={handleToggle} />
       <Sidebar isActive={isActive} />
-      <div className="flex-1 mt-[60px] ml-[256px] bg-gray-50">
+      <div className="flex-1 overflow-auto mt-[60px] md:ml-[256px] bg-gray-50 py-8 px-12">
         <Outlet />
       </div>
     </div>

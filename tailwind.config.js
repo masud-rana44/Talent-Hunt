@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
+        sono: ["Sono", "sans-serif"],
       },
       colors: {
         brand: {
