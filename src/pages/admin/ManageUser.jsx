@@ -2,6 +2,7 @@ import useUsers from "../../hooks/useUsers";
 import Loader from "../../components/Shared/Loader";
 import { updateUser } from "../../api/apiUsers";
 import toast from "react-hot-toast";
+import Pagination from "../../components/Table/Pagination";
 
 const ManageUser = () => {
   const { users, isLoading } = useUsers();
@@ -55,6 +56,7 @@ const ManageUser = () => {
             </tr>
           ))}
         </tbody>
+        <Pagination count={users.length} />
       </table>
     </div>
   );
