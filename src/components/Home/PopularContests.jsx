@@ -10,7 +10,7 @@ const PopularContests = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="mt-20">
+    <div className="mt-28">
       <Container>
         <SectionHeading
           title="Popular Contests"

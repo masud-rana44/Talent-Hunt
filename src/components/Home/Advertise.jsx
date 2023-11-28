@@ -12,13 +12,22 @@ const Advertise = () => {
     <div className="mt-20">
       <Container>
         <SectionHeading
-          title="Winners"
+          title="Contest Winners"
           subtitle="See How Much Our Winners Earned"
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-6 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8">
           {contests.map((contest, index) => (
-            <div key={index} className="bg-white rounded-lg border p-6">
-              <div className="flex items-center mb-4">
+            <div key={index} className="relative rounded-lg border p-6">
+              {/* <div className="absolute inset-0">
+                <img
+                  className="object-cover object-right w-full h-full lg:object-center"
+                  src={contest?.image}
+                  alt=""
+                />
+              </div> */}
+
+              {/* <div className="absolute inset-0 bg-gray-900 bg-opacity-40"></div> */}
+              <div className="flex items-center mb-4 ">
                 <img
                   src={contest.winner.image}
                   alt={contest.winner.name}

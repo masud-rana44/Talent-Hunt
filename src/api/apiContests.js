@@ -97,3 +97,9 @@ export const getWinners = async () => {
   const { data } = await axiosPublic.get("/contests/winners");
   return data;
 };
+
+// Get best creators
+export const getBestCreators = async () => {
+  const { data } = await axiosPublic.get("/contests/best-creator");
+  return data;
+}

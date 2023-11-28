@@ -11,7 +11,7 @@ const Home = () => {
       <PopularContests />
       <Advertise />
       <BestCreators />
-      {/* <Testimonials /> */}
+      <Testimonials />
     </div>
   );
 };
