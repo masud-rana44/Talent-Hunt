@@ -1,10 +1,8 @@
-import MenuItem from "./MenuItem";
 import useRole from "../../hooks/useRole";
 import Logo from "../Shared/Logo";
 import UsersMenu from "./UserMenu";
 import CreatorMenu from "./CreatorMenu";
 import AdminMenu from "./AdminMenu";
-import { HiOutlineHome } from "react-icons/hi2";
 
 const Sidebar = ({ isActive }) => {
   const { role } = useRole();
@@ -25,8 +23,6 @@ const Sidebar = ({ isActive }) => {
         {/* Nav Items */}
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav>
-            <MenuItem icon={HiOutlineHome} label="Home" address="/dashboard" />
-
             {/* Menu Items */}
             {role === "user" && <UsersMenu />}
             {role === "creator" && <CreatorMenu />}

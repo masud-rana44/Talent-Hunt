@@ -76,7 +76,9 @@ const DetailsBody = ({ contest }) => {
                   <hr className="my-4" />
                   <Button
                     onClick={() =>
-                      navigate(`/contests/${contest._id}/register`)
+                      navigate(`/contests/${contest._id}/register`, {
+                        state: { contest },
+                      })
                     }
                     variant="contained"
                   >

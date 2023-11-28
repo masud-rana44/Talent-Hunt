@@ -1,5 +1,11 @@
+import UpdateUserDataForm from "../../components/Form/UpdateUserDataForm";
+
 const MyProfile = () => {
-  return <div>MyProfile</div>;
+  return (
+    <div>
+      <UpdateUserDataForm />
+    </div>
+  );
 };
 
 export default MyProfile;

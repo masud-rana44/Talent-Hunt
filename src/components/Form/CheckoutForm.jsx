@@ -4,18 +4,19 @@ import { useEffect, useState } from "react";
 import { axiosSecure } from "../../api";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addParticipant } from "../../api/apiContests";
 import useUser from "../../hooks/useUser";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ contest }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState("");
   const { contestId } = useParams();
   const { userData } = useUser();
-  const amount = 500;
+  const amount = contest?.entryFee || 10;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getClientSecret = async () => {
@@ -25,7 +26,7 @@ const CheckoutForm = () => {
       setClientSecret(data.clientSecret);
     };
     getClientSecret();
-  }, []);
+  }, [amount]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,13 +38,25 @@ const CheckoutForm = () => {
 
     if (!card) return;
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
 
     if (error) {
       console.log(error);
+    }
+
+    try {
+      // save the payment to the db
+      await addParticipant(contestId, userData?._id);
+    } catch (error) {
+      console.log(error);
+      return toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong"
+      );
     }
 
     const { paymentIntent, error: stripeError } =
@@ -63,15 +76,8 @@ const CheckoutForm = () => {
     }
 
     if (paymentIntent?.status === "succeeded") {
-      toast.success("Payment successful");
-      console.log(paymentIntent);
-
-      try {
-        // save the payment to the db
-        await addParticipant(contestId, userData?._id);
-      } catch (error) {
-        toast.error(error?.message || "Something went wrong");
-      }
+      toast.success("Registration successful");
+      navigate("/dashboard/registered-contests");
     }
   };
 
@@ -98,7 +104,7 @@ const CheckoutForm = () => {
         disabled={!stripe || !user}
         className="btn mt-4 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Pay
+        Pay ${amount}
       </button>
     </FormLayout>
   );

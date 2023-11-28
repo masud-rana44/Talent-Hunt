@@ -1,16 +1,19 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useContestByIdForCreator from "../../hooks/useContestByIdForCreator";
 import Loader from "../../components/Shared/Loader";
 import { declareWinner } from "../../api/apiContests";
 import toast from "react-hot-toast";
+import { isContestEnd } from "../../utils";
+import Pagination from "../../components/Table/Pagination";
 
 const ContestSubmission = () => {
   const { id } = useParams();
-  const { contest, isLoading } = useContestByIdForCreator(id);
+  const { contest, isLoading, refetch } = useContestByIdForCreator(id);
 
   const handleDeclareWinner = async (participantId) => {
     try {
       await declareWinner(id, { winner: participantId });
+      refetch();
       toast.success("Winner declared");
     } catch (error) {
       toast.error(
@@ -23,14 +26,30 @@ const ContestSubmission = () => {
 
   if (isLoading || !contest) return <Loader />;
 
+  const isEnd = isContestEnd(contest?.deadline);
+
   return (
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-1">{contest?.title}</h1>
+      <h1 className="text-2xl font-bold mb-10">
+        <Link to={`/contests/${contest._id}`} className="hover:underline">
+          {contest?.title}
+        </Link>
+      </h1>
       <div className="flex items-center justify-between text-gray-600 font-medium mb-4">
         <h4>{contest?.participants?.length} Participants</h4>
-        <h4>
-          Deadline: {new Date(contest?.deadline).toLocaleDateString("en-IN")}
-        </h4>
+        <div className="flex items-center gap-x-10">
+          <p>
+            Status:{" "}
+            {isEnd ? (
+              <span className="text-red-500">Finished</span>
+            ) : (
+              <span className="text-green-500">Running</span>
+            )}
+          </p>
+          <h4>
+            Deadline: {new Date(contest?.deadline).toLocaleDateString("en-IN")}
+          </h4>
+        </div>
       </div>
       <table className="w-full border-collapse">
         <thead>
@@ -45,7 +64,16 @@ const ContestSubmission = () => {
         </thead>
         <tbody>
           {contest?.participants?.map((participant) => (
-            <tr key={participant._id}>
+            <tr
+              key={participant._id}
+              className={`${
+                contest?.winner
+                  ? participant?._id === contest?.winner?._id
+                    ? "bg-green-50"
+                    : "bg-red-50"
+                  : "bg-gray-50"
+              }`}
+            >
               <td className="border border-gray-300 px-4 py-2">
                 {participant.name}
               </td>
@@ -68,7 +96,13 @@ const ContestSubmission = () => {
               </td>
               <td className="border border-gray-300 px-4 py-2">
                 {contest.winner ? (
-                  <div>{contest.winner.name}</div>
+                  <div className="font-sono ">
+                    {participant._id === contest?.winner._id ? (
+                      <p>Winner</p>
+                    ) : (
+                      <p>-----</p>
+                    )}
+                  </div>
                 ) : (
                   <button
                     className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`}
@@ -83,6 +117,9 @@ const ContestSubmission = () => {
           ))}
         </tbody>
       </table>
+      <div className="w-full mt-4 ">
+        <Pagination count={10} />
+      </div>
     </div>
   );
 };

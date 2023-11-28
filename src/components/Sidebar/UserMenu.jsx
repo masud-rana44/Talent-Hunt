@@ -1,6 +1,5 @@
 import MenuItem from "./MenuItem";
-import { FaCashRegister, FaGrinWink } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
+import { FaCashRegister, FaGrinWink, FaUser } from "react-icons/fa";
 
 const UsersMenu = () => {
   return (
@@ -15,11 +14,7 @@ const UsersMenu = () => {
         icon={FaGrinWink}
         address="/dashboard/winning-contests"
       />
-      <MenuItem
-        label="My Profile"
-        icon={CgProfile}
-        address="/dashboard/profile"
-      />
+      <MenuItem label="My Profile" icon={FaUser} address="/dashboard/profile" />
     </>
   );
 };

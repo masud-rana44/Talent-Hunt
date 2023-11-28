@@ -26,7 +26,7 @@ const DetailsHeader = ({ contest }) => {
 
             <div className="max-w-xl mx-auto mt-10 text-white  font-bold ">
               <div className="text-xl font-medium">
-                {isContestEnd ? "Deadline" : "Ends in"}
+                {isContestEnd ? "Finished on" : "Ends in"}
               </div>
               <div className="text-4xl">
                 <Countdown date={new Date(contest?.deadline)}>

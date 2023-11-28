@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useRole from "../../hooks/useRole";
 
 const MenuDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = useAuth();
+  const { role, isLoading } = useRole();
 
   const handleLogout = async () => {
     try {
@@ -16,7 +18,11 @@ const MenuDropdown = () => {
     }
   };
 
-  if (!user) return null;
+  if (!user || isLoading) return null;
+
+  let dashboardLink = "/dashboard/registered-contests";
+  dashboardLink =
+    role === "creator" ? "/dashboard/creator/contests" : "/dashboard/users";
 
   return (
     <div className="relative">
@@ -46,7 +52,7 @@ const MenuDropdown = () => {
                   {user?.displayName}
                 </div>
                 <Link
-                  to="/dashboard"
+                  to={dashboardLink}
                   className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                 >
                   Dashboard
