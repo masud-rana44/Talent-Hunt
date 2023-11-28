@@ -6,23 +6,45 @@ import { LiaSpinnerSolid } from "react-icons/lia";
 import useAuth from "../hooks/useAuth";
 import { generateToken, saveUser } from "../api/apiAuth";
 import { imageUpload } from "../api/utils";
+import { useForm } from "react-hook-form";
+
+const emailVerification = /\S+@\S+\.\S+/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
 
 const Registration = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { createUser, updateUserProfile, signInWithGoogle, loading } =
     useAuth();
+  const { register, handleSubmit } = useForm();
 
   const from = location.state?.from?.pathname || "/";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
+    const name = data.name;
+    const email = data.email;
+    const password = data.password;
+    const image = data.image[0];
 
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const image = form.image.files[0];
+    if (!name || !image || !email || !password) {
+      return toast.error("Missing required fields.");
+    }
+
+    if (!emailVerification.test(email)) {
+      return toast.error("Please enter a valid email");
+    }
+
+    if (!passwordRegex.test(password)) {
+      if (password.length < 6) {
+        return toast.error("Password must be at least 6 characters long.");
+      } else if (!/[A-Z]/.test(password)) {
+        return toast.error("Password must contain at least one capital letter");
+      } else if (!/[\W_]/.test(password)) {
+        return toast.error(
+          "Password must contain at least one special character"
+        );
+      }
+    }
 
     try {
       // upload image
@@ -70,12 +92,12 @@ const Registration = () => {
       <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900">
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
-          <p className="text-sm text-gray-400">Welcome to StayVista</p>
+          <p className="text-sm text-gray-400">Welcome to Talent Hunt</p>
         </div>
         <form
           noValidate=""
           action=""
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-4">
@@ -87,8 +109,9 @@ const Registration = () => {
                 type="text"
                 name="name"
                 id="name"
+                {...register("name")}
                 placeholder="Enter Your Name Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-blue-500 bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
               />
             </div>
@@ -100,6 +123,7 @@ const Registration = () => {
                 required
                 type="file"
                 id="image"
+                {...register("image")}
                 name="image"
                 accept="image/*"
               />
@@ -112,9 +136,10 @@ const Registration = () => {
                 type="email"
                 name="email"
                 id="email"
+                {...register("email")}
                 required
                 placeholder="Enter Your Email Here"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-blue-500 bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
               />
             </div>
@@ -129,17 +154,19 @@ const Registration = () => {
                 name="password"
                 autoComplete="new-password"
                 id="password"
+                {...register("password")}
                 required
                 placeholder="*******"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900"
+                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-blue-500 bg-gray-200 text-gray-900"
               />
             </div>
           </div>
 
           <div>
             <button
+              disabled={loading}
               type="submit"
-              className="bg-rose-500 w-full rounded-md py-3 text-white"
+              className="bg-blue-500 w-full rounded-md py-3 text-white"
             >
               {loading ? (
                 <LiaSpinnerSolid className="animate-spin mx-auto" />
@@ -168,7 +195,7 @@ const Registration = () => {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="hover:underline hover:text-rose-500 text-gray-600"
+            className="hover:underline hover:text-blue-500 text-gray-600"
           >
             Login
           </Link>
