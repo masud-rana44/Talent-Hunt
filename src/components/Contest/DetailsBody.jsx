@@ -1,26 +1,15 @@
 import Container from "../Shared/Container";
-import moment from "moment";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useRole from "../../hooks/useRole";
 import Loader from "../Shared/Loader";
-
-const formatDate = (dateTime) => {
-  const formattedDateTime = moment(dateTime).format("dddd, MMM D YYYY h:mm A");
-  const timeZone = moment().format("Z");
-
-  return `${formattedDateTime} to ${moment(dateTime)
-    .add(3, "hours")
-    .format("h:mm A")} (+${timeZone})`;
-};
+import { formatDate, isContestEnd } from "../../utils";
 
 const DetailsBody = ({ contest }) => {
   const navigate = useNavigate();
   const { role, isLoading: isRoleLoading } = useRole();
 
   if (isRoleLoading) return <Loader />;
-
-  const isContestEnd = moment(contest?.deadline).isBefore(moment());
 
   return (
     <Container>
@@ -55,9 +44,9 @@ const DetailsBody = ({ contest }) => {
               </div>
             </div>
           )}
-          <hr className="my-4" />
           {contest?.winner && (
             <div>
+              <hr className="my-4" />
               <h1 className=" font-medium mb-1">Contest winner</h1>
               <div className="flex items-center gap-x-2">
                 <div>
@@ -74,11 +63,11 @@ const DetailsBody = ({ contest }) => {
                   </span>
                 </div>
               </div>
-              <hr className="my-4" />
             </div>
           )}
-          {!isContestEnd && (
+          {!isContestEnd(contest?.deadline) && (
             <>
+              <hr className="my-4" />
               <div>Price: {contest?.prizeMoney}$</div>
               <div>Registration fee: Only {contest?.entryFee}$</div>
               <div>Deadline: {formatDate(contest?.deadline)}</div>

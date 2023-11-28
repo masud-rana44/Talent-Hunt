@@ -1,6 +1,10 @@
+import moment from "moment";
 import Countdown from "react-countdown";
+import { formatDate } from "../../utils";
 
 const DetailsHeader = ({ contest }) => {
+  const isContestEnd = moment(contest?.deadline).isBefore(moment());
+
   return (
     <section>
       <div className="relative py-12 bg-white sm:py-16  lg:py-20">
@@ -19,14 +23,17 @@ const DetailsHeader = ({ contest }) => {
             <h1 className="text-3xl font-bold text-white sm:text-4xl xl:text-5xl">
               {contest?.title}
             </h1>
-            {/* <p className="max-w-xl mx-auto mt-6 text-base font-normal leading-7 text-gray-300">
-              {contest?.description}
-            </p> */}
 
             <div className="max-w-xl mx-auto mt-10 text-white  font-bold ">
-              <div className="text-xl font-medium">Starts in</div>
+              <div className="text-xl font-medium">
+                {isContestEnd ? "Deadline" : "Ends in"}
+              </div>
               <div className="text-4xl">
-                <Countdown date={new Date(contest?.deadline)}></Countdown>
+                <Countdown date={new Date(contest?.deadline)}>
+                  <div className="text-2xl">
+                    {formatDate(contest?.deadline).slice(0, 22)}
+                  </div>
+                </Countdown>
               </div>
             </div>
 
@@ -34,7 +41,7 @@ const DetailsHeader = ({ contest }) => {
               <div>
                 <p className="text-4xl font-bold text-white">38</p>
                 <p className="mt-2 text-sm font-medium text-gray-300">
-                  Already Registered
+                  {isContestEnd ? "Total Registered" : "Already Registered"}
                 </p>
               </div>
 

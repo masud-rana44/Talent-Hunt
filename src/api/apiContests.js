@@ -20,8 +20,10 @@ export const getContestById = async (id) => {
 
 // Get contest by creator
 export const getContestByCreator = async (creatorId, page) => {
-    const limit = import.meta.env.VITE_APP_PAGE_SIZE || 5;
-  const { data } = await axiosSecure.get(`/contests/creator/${creatorId}?page=${page}&limit=${limit}`);
+  const limit = import.meta.env.VITE_APP_PAGE_SIZE || 5;
+  const { data } = await axiosSecure.get(
+    `/contests/creator/${creatorId}?page=${page}&limit=${limit}`
+  );
   return data;
 };
 
@@ -87,5 +89,11 @@ export const declareWinner = async (contestId, winner) => {
 // Delete a contest in DB
 export const deleteContest = async (id) => {
   const { data } = await axiosSecure.delete(`/contests/${id}`);
+  return data;
+};
+
+// Get winners
+export const getWinners = async () => {
+  const { data } = await axiosPublic.get("/contests/winners");
   return data;
 };

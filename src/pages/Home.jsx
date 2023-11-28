@@ -1,5 +1,6 @@
+import Advertise from "../components/Home/Advertise";
 import Banner from "../components/Home/Banner";
-import Features from "../components/Home/Features";
+import BestCreators from "../components/Home/BestCreators";
 import PopularContests from "../components/Home/PopularContests";
 import Testimonials from "../components/Home/Testimonials";
 
@@ -8,8 +9,9 @@ const Home = () => {
     <div>
       <Banner />
       <PopularContests />
-      <Features />
-      <Testimonials />
+      <Advertise />
+      <BestCreators />
+      {/* <Testimonials /> */}
     </div>
   );
 };
