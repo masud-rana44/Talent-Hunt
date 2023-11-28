@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import useContestById from "../hooks/useContestById";
 import Loader from "../components/Shared/Loader";
-import DetailsHeader from "../components/ContestDetails/DetailsHeader";
-import DetailsBody from "../components/ContestDetails/DetailsBody";
+import DetailsHeader from "../components/Contest/DetailsHeader";
+import DetailsBody from "../components/Contest/DetailsBody";
 
 const ContestDetails = () => {
   const { id } = useParams();
