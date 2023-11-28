@@ -1,80 +1,86 @@
 import { useState } from "react";
-
-import Button from "../../ui/Button";
-import FileInput from "../../ui/FileInput";
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
-
-import { useUser } from "./useUser";
-import { useUpdateUser } from "./useUpdateUser";
+import FormLayout from "./FormLayout";
+import FormRow from "./FormRow";
+import Input from "./Input";
+import { Button } from "@mui/material";
+import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
+import { imageUpload } from "../../api/utils";
+import { updateUser } from "../../api/apiUsers";
+import useUser from "../../hooks/useUser";
+import Loader from "../Shared/Loader";
+import toast from "react-hot-toast";
 
 function UpdateUserDataForm() {
-  // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
-  const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
-  const { updateUser, isUpdating } = useUpdateUser();
+  const { user, updateUserProfile } = useAuth();
+  const { userData, isLoading } = useUser();
+  const [isUpdating, setIsUpdating] = useState(false);
+  const { register, handleSubmit } = useForm();
 
-  const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
+  if (isLoading) return <Loader />;
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!fullName) return;
-    updateUser(
-      { fullName, avatar },
-      {
-        onSuccess: () => {
-          setAvatar(null);
-          e.target.reset();
-        },
-      }
-    );
-  }
+  async function onSubmit(data) {
+    if (!data?.fullName) return;
 
-  function handleCancel() {
-    setFullName(currentFullName);
-    setAvatar(null);
+    const name = data?.fullName;
+
+    setIsUpdating(true);
+    try {
+      // upload image
+      const imageUrl =
+        data.image.length === 0
+          ? userData.image
+          : await imageUpload(data?.image[0]);
+
+      // update profile on firebase
+      await updateUserProfile(name, imageUrl);
+
+      // update profile on db
+      await updateUser(userData?._id, { name, image: imageUrl });
+
+      toast.success("Profile updated");
+    } catch (error) {
+      toast.error(error.message || "Something went wrong.");
+    } finally {
+      setIsUpdating(false);
+    }
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <FormLayout onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-2xl font-semibold text-gray-900 mb-10">
+        Update Profile
+      </h1>
       <FormRow label="Email address">
-        <Input value={email} disabled />
+        <Input value={user?.email} disabled />
       </FormRow>
       <FormRow label="Full name">
-        <Input
+        <input
           type="text"
-          value={fullName}
+          defaultValue={user?.displayName}
           disabled={isUpdating}
-          onChange={(e) => setFullName(e.target.value)}
           id="fullName"
+          {...register("fullName")}
+          className="border border-gray-300 bg-gray-100 rounded-md px-4 py-2 shadow-sm focus:outline-none focus:ring focus:ring-gray-400 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
         />
       </FormRow>
       <FormRow label="Avatar image">
-        <FileInput
+        <input
           id="avatar"
+          type="file"
           disabled={isUpdating}
           accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
+          {...register("image")}
         />
       </FormRow>
       <FormRow>
-        <Button
-          type="reset"
-          variation="secondary"
-          disabled={isUpdating}
-          onClick={handleCancel}
-        >
-          Cancel
-        </Button>
-        <Button disabled={isUpdating}>Update account</Button>
+        <div className="flex items-center gap-x-6 justify-end">
+          <Button type="submit" variant="contained" disabled={isUpdating}>
+            Update account
+          </Button>
+        </div>
       </FormRow>
-    </Form>
+    </FormLayout>
   );
 }
 
