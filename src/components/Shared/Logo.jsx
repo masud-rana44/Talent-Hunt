@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 
-const Logo = () => {
+const Logo = ({ size }) => {
   return (
-    <Link to="/" className="flex flex-col items-center">
+    <Link
+      to="/"
+      className={`flex items-center ${
+        size === "sm" ? "flex-row gap-2" : " flex-col"
+      }`}
+    >
       <svg
-        width="60"
-        height="60"
+        width={size === "sm" ? "40" : "60"}
+        height={size === "sm" ? "40" : "60"}
         viewBox="0 0 80 80"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +88,7 @@ const Logo = () => {
           fill="#DEB038"
         ></path>
       </svg>
+
       <h1 className="text-gray-600 font-medium leading-10 tracking-widest">
         Talent Hunt
       </h1>
