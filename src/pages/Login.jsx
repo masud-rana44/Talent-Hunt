@@ -7,7 +7,7 @@ import { generateToken, saveUser } from "../api/apiAuth";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const { signIn, signInWithGoogle, loading } = useAuth();
+  const { signIn, signInWithGoogle, loading, setLoading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
@@ -33,6 +33,7 @@ const Login = () => {
       navigate(from, { replace: true });
     } catch (error) {
       toast.error(error?.message || "Something went wrong!");
+      setLoading(false);
     }
   };
 
@@ -51,6 +52,7 @@ const Login = () => {
       navigate(from, { replace: true });
     } catch (error) {
       toast.error(error?.message || "Something went wrong!");
+      setLoading(false);
     }
   };
 

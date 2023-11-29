@@ -1,26 +1,14 @@
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useContestByIdForCreator from "../../hooks/useContestByIdForCreator";
 import Loader from "../../components/Shared/Loader";
 import { declareWinner } from "../../api/apiContests";
 import toast from "react-hot-toast";
 import { isContestEnd } from "../../utils";
 import Pagination from "../../components/Table/Pagination";
-import { useEffect, useState } from "react";
-
-const PAGE_SIZE = Number(import.meta.env.VITE_APP_PAGE_SIZE);
 
 const ContestSubmission = () => {
   const { id } = useParams();
   const { contest, isLoading, refetch } = useContestByIdForCreator(id);
-  const [con, setCon] = useState([]);
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get("page") || 1;
-
-  useEffect(() => {
-    const start = (page - 1) * PAGE_SIZE;
-    const end = start + PAGE_SIZE;
-    setCon(contest?.participants?.slice(start, end));
-  }, [page, contest?.participants]);
 
   const handleDeclareWinner = async (participantId) => {
     try {
@@ -75,7 +63,7 @@ const ContestSubmission = () => {
           </tr>
         </thead>
         <tbody>
-          {con?.map((participant) => (
+          {contest?.participants?.map((participant) => (
             <tr
               key={participant._id}
               className={`${

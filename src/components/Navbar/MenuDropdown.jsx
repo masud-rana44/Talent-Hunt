@@ -42,7 +42,7 @@ const MenuDropdown = ({ role, isLoading }) => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-md shadow-md w-[40vw] md:w-[20vw] bg-white overflow-hidden right-0 top-12 text-sm">
+        <div className="absolute rounded-md shadow-md w-[40vw] md:w-[15vw] bg-white overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             {user?.email ? (
               <>

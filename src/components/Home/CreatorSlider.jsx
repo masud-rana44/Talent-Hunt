@@ -24,12 +24,20 @@ const CreatorSlider = ({ creators }) => {
         modules={[FreeMode, Pagination, Thumbs, Autoplay]}
         className="mySwiper2 max-h-screen"
       >
-        {creators.map((creator, idx) => (
+        {creators?.map((creator, idx) => (
           <SwiperSlide key={idx}>
-            <img
-              className="w-full object-cover h-[400px]"
-              src={creator?.image}
-            />
+            <div className="relative">
+              <img
+                className="w-full object-cover h-[600px]"
+                src={creator?.image}
+              />
+              <div className="absolute text-white bottom-10 right-10 font-bold">
+                <div className="text-6xl">{creator?.creator}</div>
+                <div className="text-2xl">
+                  Total Spend: {creator?.totalPrizeMoney}$
+                </div>
+              </div>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

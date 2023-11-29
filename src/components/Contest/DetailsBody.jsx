@@ -32,7 +32,7 @@ const DetailsBody = ({ contest }) => {
                   <img
                     src={contest?.creator?.image}
                     alt=""
-                    className="h-11 w-11 rounded-full"
+                    className="h-11 w-11 object-cover rounded-full"
                   />
                 </div>
                 <div className="flex flex-col italic">
@@ -53,7 +53,7 @@ const DetailsBody = ({ contest }) => {
                   <img
                     src={contest?.winner?.image}
                     alt=""
-                    className="h-11 w-11 rounded-full"
+                    className="h-11 w-11 object-cover rounded-full"
                   />
                 </div>
                 <div className="flex flex-col italic">
@@ -68,7 +68,10 @@ const DetailsBody = ({ contest }) => {
           {!isContestEnd(contest?.deadline) && (
             <>
               <hr className="my-4" />
-              <div>Price: {contest?.prizeMoney}$</div>
+              <div>
+                Price:{" "}
+                <span className="font-medium">{contest?.prizeMoney}$</span>
+              </div>
               <div>Registration fee: Only {contest?.entryFee}$</div>
               <div>Deadline: {formatDate(contest?.deadline)}</div>
               {role === "user" && (

@@ -39,7 +39,9 @@ const DetailsHeader = ({ contest }) => {
 
             <div className="grid max-w-md grid-cols-2 mx-auto mt-8 md:mt-16 lg:mt-24 xl:mt-32 gap-x-6 grid-col-2">
               <div>
-                <p className="text-4xl font-bold text-white">38</p>
+                <p className="text-4xl font-bold text-white">
+                  0{contest?.participants?.length}
+                </p>
                 <p className="mt-2 text-sm font-medium text-gray-300">
                   {isContestEnd ? "Total Registered" : "Already Registered"}
                 </p>

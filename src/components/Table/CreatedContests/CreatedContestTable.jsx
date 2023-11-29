@@ -27,7 +27,7 @@ const CreatedContestTable = () => {
           )}
         />
         <Table.Footer>
-          <Pagination count={count} />
+          <Pagination count={count || 0} />
         </Table.Footer>
       </Table>
     </>

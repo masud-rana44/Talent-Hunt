@@ -23,6 +23,8 @@ function Pagination({ count = 0 }) {
 
   if (pageCount === 1) return null;
 
+  if (count === 0) return null;
+
   return (
     <div className="w-full flex items-center justify-between">
       <p className="text-sm font-normal">

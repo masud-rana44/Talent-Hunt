@@ -14,8 +14,13 @@ const passwordRegex = /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/;
 const Registration = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { createUser, updateUserProfile, signInWithGoogle, loading } =
-    useAuth();
+  const {
+    createUser,
+    updateUserProfile,
+    signInWithGoogle,
+    loading,
+    setLoading,
+  } = useAuth();
   const { register, handleSubmit } = useForm();
 
   const from = location.state?.from?.pathname || "/";
@@ -66,6 +71,7 @@ const Registration = () => {
       navigate(from);
     } catch (error) {
       toast.error(error?.message || "Something went wrong!");
+      setLoading(false);
     }
   };
 
@@ -84,6 +90,7 @@ const Registration = () => {
       navigate(from);
     } catch (error) {
       toast.error(error?.message || "Something went wrong!");
+      setLoading(false);
     }
   };
 

@@ -16,7 +16,7 @@ const AllContests = () => {
   const category = searchParas.get("category");
 
   useEffect(() => {
-    refetch();
+    // refetch();
 
     // Filter the contests based on the category
     if (category) {
@@ -27,7 +27,7 @@ const AllContests = () => {
     } else {
       setFilteredContests(contests);
     }
-  }, [category, contests, refetch]);
+  }, [category, contests]);
 
   if (isLoading) return <Loader />;
 
