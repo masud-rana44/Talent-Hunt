@@ -5,10 +5,15 @@ import { useState } from "react";
 import open from "./open.svg";
 import close from "./close.svg";
 import useAuth from "../../hooks/useAuth";
+import { BsCoin } from "react-icons/bs";
+import useUser from "../../hooks/useUser";
 
 const Navbar = () => {
   const [expanded, setExpanded] = useState(false);
   const { user } = useAuth();
+  const { userData, isLoading } = useUser();
+
+  const credits = userData?.credits || 0;
 
   const links = (
     <>
@@ -39,7 +44,7 @@ const Navbar = () => {
   );
 
   return (
-    <header className="fixed w-full bg-white z-10  py-4 md:py-6">
+    <header className="fixed w-full bg-gray-50 z-10  py-4 md:py-6">
       <div className="container px-4 mx-auto sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -78,7 +83,30 @@ const Navbar = () => {
 
           <div className="hidden lg:ml-auto lg:flex lg:items-center lg:space-x-10">
             {user ? (
-              <MenuDropdown />
+              <>
+                {userData?.role === "creator" && (
+                  <div className="flex items-center gap-x-1">
+                    <BsCoin
+                      size={24}
+                      className="inline-block text-2xl text-gray-900"
+                    />
+                    <span className="inline-block text-xl text-gray-600 font-sono font-semibold">
+                      {credits}
+                    </span>
+
+                    <div className="ml-2">
+                      <Link
+                        to="/credits/buy"
+                        className="inline-flex items-center justify-center px-2 py-[2px] text-sm font-medium leading-7 text-white transition-all duration-200 bg-gray-900 border border-transparent rounded-xl hover:bg-gray-600 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                        role="button"
+                      >
+                        Buy Credits
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                <MenuDropdown role={userData?.role} isLoading={isLoading} />
+              </>
             ) : (
               <>
                 <Link

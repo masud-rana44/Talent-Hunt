@@ -9,6 +9,7 @@ const useUser = () => {
     data: userData,
     error,
     isLoading,
+    refetch,
   } = useQuery({
     disabled: loading || !user?.email,
     queryKey: ["userData", user?.email],
@@ -19,6 +20,7 @@ const useUser = () => {
     userData,
     error,
     isLoading,
+    refetch,
   };
 };
 

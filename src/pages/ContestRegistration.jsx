@@ -8,13 +8,13 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const ContestRegistration = () => {
   const location = useLocation();
-  const { contest } = location.state;
+  const contest = location.state?.contest || {};
 
   return (
     <Container>
       <h1 className="text-2xl text-gray-600 font-semibold text-center mt-10">{`Registration for ${contest?.title}`}</h1>
       <Elements stripe={stripePromise}>
-        <CheckoutForm contest={contest} />
+        <CheckoutForm amount={contest?.entryFee} />
       </Elements>
     </Container>
   );

@@ -4,7 +4,7 @@ const ContestCard = ({ contest }) => {
   const { _id, title, image, participantsCount, type, description } = contest;
 
   return (
-    <div className="bg-white flex flex-col rounded-lg shadow-md p-4">
+    <div className="bg-white flex flex-col rounded-lg shadow-md p-4 break-words">
       <div>
         <img
           src={image}

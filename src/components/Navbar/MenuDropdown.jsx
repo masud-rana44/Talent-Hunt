@@ -2,12 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import useRole from "../../hooks/useRole";
 
-const MenuDropdown = () => {
+const MenuDropdown = ({ role, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = useAuth();
-  const { role, isLoading } = useRole();
 
   const handleLogout = async () => {
     try {

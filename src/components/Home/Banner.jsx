@@ -1,6 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import search from "../../assets/search.svg";
 
 const Banner = () => {
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log("searching...");
+  };
+
   return (
     <section>
       <div className="relative py-12 bg-white sm:py-16 lg:py-20">
@@ -24,7 +32,7 @@ const Banner = () => {
               engage communities, and celebrate talent across various domains.
             </p>
 
-            <form action="#" className="max-w-xl mx-auto mt-10">
+            <form onSubmit={handleSearch} className="max-w-xl mx-auto mt-10">
               <div>
                 <label htmlFor="search" className="sr-only">
                   Search

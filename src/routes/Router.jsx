@@ -26,6 +26,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import CreatorRoute from "./CreatorRoute";
 import LeaderBoard from "../pages/LeaderBoard";
+import BuyCredits from "../pages/BuyCredits";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: "/leaderboard",
         element: <LeaderBoard />,
+      },
+      {
+        path: "/credits/buy",
+        element: (
+          <CreatorRoute>
+            <BuyCredits />
+          </CreatorRoute>
+        ),
       },
       {
         path: "/contests/:id",

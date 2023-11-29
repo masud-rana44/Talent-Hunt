@@ -21,3 +21,8 @@ export const getLeaderBoard = async () => {
   const { data } = await axiosPublic.get("/contests/leaderboard");
   return data;
 };
+
+export const addCredit = async (credits) => {
+  const { data } = await axiosSecure.patch(`/users/credits`, credits);
+  return data;
+};

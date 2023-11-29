@@ -7,15 +7,15 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { addParticipant } from "../../api/apiContests";
 import useUser from "../../hooks/useUser";
+import { addCredit } from "../../api/apiUsers";
 
-const CheckoutForm = ({ contest }) => {
+const CheckoutForm = ({ amount, isCredit = false }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { user } = useAuth();
   const [clientSecret, setClientSecret] = useState("");
   const { contestId } = useParams();
-  const { userData } = useUser();
-  const amount = contest?.entryFee || 10;
+  const { userData, refetch } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,16 +47,29 @@ const CheckoutForm = ({ contest }) => {
       console.log(error);
     }
 
-    try {
-      // save the payment to the db
-      await addParticipant(contestId, userData?._id);
-    } catch (error) {
-      console.log(error);
-      return toast.error(
-        error?.response?.data?.message ||
-          error?.message ||
-          "Something went wrong"
-      );
+    if (!isCredit) {
+      try {
+        // save the payment to the db
+        await addParticipant(contestId, userData?._id);
+      } catch (error) {
+        console.log(error);
+        return toast.error(
+          error?.response?.data?.message ||
+            error?.message ||
+            "Something went wrong"
+        );
+      }
+    } else {
+      // add credits to the user
+      try {
+        await addCredit({ credits: amount * 2 });
+      } catch (error) {
+        return toast.error(
+          error?.response?.data?.message ||
+            error?.message ||
+            "Something went wrong"
+        );
+      }
     }
 
     const { paymentIntent, error: stripeError } =
@@ -76,8 +89,14 @@ const CheckoutForm = ({ contest }) => {
     }
 
     if (paymentIntent?.status === "succeeded") {
-      toast.success("Registration successful");
-      navigate("/dashboard/registered-contests");
+      if (isCredit) {
+        refetch();
+        toast.success(`${amount * 2} credits added`);
+        navigate("/");
+      } else {
+        toast.success("Registration successful");
+        navigate("/dashboard/registered-contests");
+      }
     }
   };
 

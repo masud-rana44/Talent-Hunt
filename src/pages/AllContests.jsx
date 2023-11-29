@@ -13,8 +13,6 @@ const AllContests = () => {
 
   const category = searchParas.get("category");
 
-  console.log(contests);
-
   useEffect(() => {
     // Filter the contests based on the category
     if (category) {
