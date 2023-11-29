@@ -21,8 +21,8 @@ const MenuDropdown = () => {
   if (!user || isLoading) return null;
 
   let dashboardLink = "/dashboard/registered-contests";
-  dashboardLink =
-    role === "creator" ? "/dashboard/creator/contests" : "/dashboard/users";
+  if (role === "creator") dashboardLink = "/dashboard/creator/contests";
+  else if (role === "admin") dashboardLink = "/dashboard/users";
 
   return (
     <div className="relative">

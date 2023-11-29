@@ -102,4 +102,10 @@ export const getWinners = async () => {
 export const getBestCreators = async () => {
   const { data } = await axiosPublic.get("/contests/best-creator");
   return data;
-}
+};
+
+// Get user stats
+export const getUserStats = async () => {
+  const { data } = await axiosSecure.get(`/contests/user-stats`);
+  return data;
+};

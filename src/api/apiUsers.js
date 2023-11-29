@@ -1,4 +1,4 @@
-import { axiosSecure } from ".";
+import { axiosPublic, axiosSecure } from ".";
 
 export const getAllUsers = async (page) => {
   const limit = import.meta.env.VITE_APP_PAGE_SIZE || 5;
@@ -14,5 +14,10 @@ export const getUser = async (email) => {
 
 export const updateUser = async (id, user) => {
   const { data } = await axiosSecure.patch(`/users/${id}`, user);
+  return data;
+};
+
+export const getLeaderBoard = async () => {
+  const { data } = await axiosPublic.get("/contests/leaderboard");
   return data;
 };

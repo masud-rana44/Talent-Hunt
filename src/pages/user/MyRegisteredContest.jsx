@@ -52,7 +52,7 @@ const MyRegisteredContest = () => {
       {sortedContests?.map((contest) => (
         <div
           key={contest._id}
-          className="border bg-white border-gray-300 rounded p-4 mb-4"
+          className="border bg-white border-gray-300 break-words rounded p-4 mb-4"
         >
           <h2 className="text-lg font-bold mb-2">{contest.title}</h2>
           <p className="text-gray-500 mb-2">
