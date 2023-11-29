@@ -8,7 +8,7 @@ const LeaderBoard = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div>
+    <div className="mt-10">
       <Container>
         <h1 className="text-3xl font-medium text-center mb-10">Leader Board</h1>
         <div className=" divide-y max-w-xl mx-auto">

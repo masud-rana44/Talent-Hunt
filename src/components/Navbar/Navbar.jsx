@@ -7,6 +7,7 @@ import close from "./close.svg";
 import useAuth from "../../hooks/useAuth";
 import { BsCoin } from "react-icons/bs";
 import useUser from "../../hooks/useUser";
+import { IoAdd } from "react-icons/io5";
 
 const Navbar = () => {
   const [expanded, setExpanded] = useState(false);
@@ -46,34 +47,10 @@ const Navbar = () => {
   return (
     <header className="fixed w-full bg-gray-50 z-10  py-4 md:py-6">
       <div className="container px-4 mx-auto sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-x-4">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Logo size="sm" />
-          </div>
-
-          <div className="flex lg:hidden">
-            <button
-              type="button"
-              className="text-gray-900"
-              onClick={() => setExpanded(!expanded)}
-              aria-expanded={expanded}
-            >
-              <span
-                style={{ display: !expanded ? "block" : "none" }}
-                aria-hidden="true"
-              >
-                {/* SVG for closed */}
-                <img src={close} alt="" className="h-7 w-7" />
-              </span>
-              <span
-                style={{ display: expanded ? "block" : "none" }}
-                aria-hidden="true"
-              >
-                {/* SVG for expanded */}
-                <img src={open} alt="" className="h-7 w-7" />
-              </span>
-            </button>
           </div>
 
           <div className="hidden lg:flex lg:ml-16 lg:items-center lg:justify-center lg:space-x-10 xl:space-x-16">
@@ -81,7 +58,7 @@ const Navbar = () => {
             {user && links}
           </div>
 
-          <div className="hidden lg:ml-auto lg:flex lg:items-center lg:space-x-10">
+          <div className="lg:mr-0 ml-auto flex items-center space-x-4 lg:space-x-10">
             {user ? (
               <>
                 {userData?.role === "creator" && (
@@ -94,13 +71,22 @@ const Navbar = () => {
                       {credits}
                     </span>
 
-                    <div className="ml-2">
+                    <div className="hidden lg:flex ml-2">
                       <Link
                         to="/credits/buy"
                         className="inline-flex items-center justify-center px-2 py-[2px] text-sm font-medium leading-7 text-white transition-all duration-200 bg-gray-900 border border-transparent rounded-xl hover:bg-gray-600 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
                         role="button"
                       >
                         Buy Credits
+                      </Link>
+                    </div>
+                    <div className="flex lg:hidden ml-2">
+                      <Link
+                        to="/credits/buy"
+                        className="inline-flex items-center justify-center h-8 w-8 rounded-full text-sm font-medium leading-7 transition-all duration-200 text-gray-900 border-gray-900 border border-transparent  hover:bg-gray-100 font-pj focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-100"
+                        role="button"
+                      >
+                        <IoAdd size={24} />
                       </Link>
                     </div>
                   </div>
@@ -128,6 +114,32 @@ const Navbar = () => {
               </>
             )}
           </div>
+
+          {user && (
+            <div className="flex lg:hidden">
+              <button
+                type="button"
+                className="text-gray-900"
+                onClick={() => setExpanded(!expanded)}
+                aria-expanded={expanded}
+              >
+                <span
+                  style={{ display: !expanded ? "block" : "none" }}
+                  aria-hidden="true"
+                >
+                  {/* SVG for closed */}
+                  <img src={close} alt="" className="h-7 w-7" />
+                </span>
+                <span
+                  style={{ display: expanded ? "block" : "none" }}
+                  aria-hidden="true"
+                >
+                  {/* SVG for expanded */}
+                  <img src={open} alt="" className="h-7 w-7" />
+                </span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Collapsed navigation */}

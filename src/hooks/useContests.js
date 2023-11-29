@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllContests } from "../api/apiContests";
 import { useSearchParams } from "react-router-dom";
 
-const useContests = () => {
-    const [searchParams] = useSearchParams();
+const useContests = (text) => {
+  const [searchParams] = useSearchParams();
 
   // PAGINATION
   const page = Number(searchParams.get("page")) || 1;
@@ -15,7 +15,7 @@ const useContests = () => {
     refetch,
   } = useQuery({
     queryKey: ["contests", page],
-    queryFn: () => getAllContests(page),
+    queryFn: () => getAllContests(page, text),
   });
   return { contests, error, isLoading, refetch };
 };

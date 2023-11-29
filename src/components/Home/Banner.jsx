@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import search from "../../assets/search.svg";
+import { useForm } from "react-hook-form";
 
 const Banner = () => {
   const navigate = useNavigate();
+  const { handleSubmit, register, reset } = useForm();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log("searching...");
+  const onSearch = (data) => {
+    navigate("/contests", { state: { search: data.search } });
+    reset();
   };
 
   return (
@@ -32,7 +34,10 @@ const Banner = () => {
               engage communities, and celebrate talent across various domains.
             </p>
 
-            <form onSubmit={handleSearch} className="max-w-xl mx-auto mt-10">
+            <form
+              onSubmit={handleSubmit(onSearch)}
+              className="max-w-xl mx-auto mt-10"
+            >
               <div>
                 <label htmlFor="search" className="sr-only">
                   Search
@@ -50,6 +55,7 @@ const Banner = () => {
                     type="text"
                     name=""
                     id="search"
+                    {...register("search")}
                     placeholder="Try Business, Writing etc..."
                     className="block w-full py-3 pl-10 pr-4 text-base font-normal leading-7 text-gray-900 placeholder-gray-500 bg-white border border-white focus:ring-white focus:border-white focus:ring-offset-2"
                   />

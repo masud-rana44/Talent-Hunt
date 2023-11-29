@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Shared/Loader";
+import { useState } from "react";
+import SpinnerMini from "../Shared/SpinnerMini";
 
 const AddContestForm = () => {
   const {
@@ -15,11 +17,17 @@ const AddContestForm = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const { userData, isLoading } = useUser();
+  const { userData, isLoading: isUserLoading } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (isLoading && !userData) return <Loader />;
+  if (isUserLoading && !userData) return <Loader />;
+
+  const credits = userData?.credits || 0;
 
   const onSubmit = async (data) => {
+    if (credits < 50) return toast.error("You don't have enough credits");
+
+    setIsLoading(true);
     try {
       // upload image
       const imageUrl = await imageUpload(data.image[0]);
@@ -43,14 +51,19 @@ const AddContestForm = () => {
           error?.message ||
           "Error adding contest"
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <FormLayout onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-2xl mb-10 text-gray-700 font-bold text-center">
-        Add New Contest
-      </h1>
+      <div className="text-center mb-10">
+        <h1 className="text-2xl text-gray-700 font-bold ">Add New Contest</h1>
+        <p className="text-gray-600 font-medium ">
+          Every contest will charge 50 credits
+        </p>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-10">
         <div>
           <FormRow label="Title" required error={errors?.title?.message}>
@@ -169,7 +182,7 @@ const AddContestForm = () => {
       </div>
       <div>
         <button disabled={isLoading} className="btn disabled:opacity-50">
-          {isLoading ? "Loading..." : "Add Contest"}
+          {isLoading ? <SpinnerMini /> : "Add Contest"}
         </button>
       </div>
     </FormLayout>

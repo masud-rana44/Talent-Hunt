@@ -1,8 +1,8 @@
 import { axiosPublic, axiosSecure } from ".";
 
 // Get all contests
-export const getAllContests = async () => {
-  const { data } = await axiosPublic.get("/contests");
+export const getAllContests = async (page, text) => {
+  const { data } = await axiosPublic.get(`/contests?search=${text}`);
   return data;
 };
 
