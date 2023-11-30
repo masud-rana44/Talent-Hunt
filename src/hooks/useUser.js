@@ -11,7 +11,7 @@ const useUser = () => {
     isLoading,
     refetch,
   } = useQuery({
-    disabled: loading || !user?.email,
+    enabled: !loading && !!user?.email,
     queryKey: ["userData", user?.email],
     queryFn: async () => await getUser(user?.email),
   });

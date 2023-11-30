@@ -1,5 +1,6 @@
 import { useNavigate, useRouteError } from "react-router-dom";
 import Button from "../components/Shared/Button";
+import Title from "../components/Shared/Title";
 
 const ErrorPage = () => {
   const navigate = useNavigate();
@@ -7,6 +8,7 @@ const ErrorPage = () => {
 
   return (
     <div className=" flex flex-col items-center justify-center h-screen">
+      <Title title="Error Page | Talent Hunt" />
       <img
         src="https://i.ibb.co/x6D2KS8/404.jpg"
         alt="Error Image"

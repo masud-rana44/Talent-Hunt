@@ -3,6 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../components/Form/CheckoutForm";
 import Container from "../components/Shared/container";
 import { useState } from "react";
+import Title from "../components/Shared/Title";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
@@ -11,6 +12,7 @@ const BuyCredits = () => {
 
   return (
     <Container>
+      <Title title="Credits | Talent Hunt" />
       <h1 className="text-2xl text-gray-600 font-semibold text-center mt-10">{`Buy Credits`}</h1>
 
       <div className="flex flex-row items-center justify-center gap-3 mt-10">

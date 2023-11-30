@@ -1,5 +1,6 @@
 import Container from "../components/Shared/Container";
 import Loader from "../components/Shared/Loader";
+import Title from "../components/Shared/Title";
 import useLeaderBoard from "../hooks/useLeaderBoard";
 
 const LeaderBoard = () => {
@@ -9,6 +10,7 @@ const LeaderBoard = () => {
 
   return (
     <div className="mt-10">
+      <Title title="Leader Board | Talent Hunt" />
       <Container>
         <h1 className="text-3xl font-medium text-center mb-10">Leader Board</h1>
         <div className=" divide-y max-w-xl mx-auto">
@@ -16,7 +18,7 @@ const LeaderBoard = () => {
             <span>Participants</span>
             <span className="float-right">Winning Money ($)</span>
           </div>
-          {data.map((user) => (
+          {data?.map((user) => (
             <div
               key={user.email}
               className="flex items-center justify-between py-2"

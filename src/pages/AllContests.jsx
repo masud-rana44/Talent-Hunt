@@ -5,12 +5,13 @@ import Container from "../components/Shared/Container";
 import Categories from "../components/Contest/Categories";
 import { useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
+import Title from "../components/Shared/Title";
 
 const AllContests = () => {
   const location = useLocation();
   const text = location?.state?.search || "";
   const { contests, isLoading, refetch } = useContests(text);
-  const [filteredContests, setFilteredContests] = useState([]);
+  const [filteredContests, setFilteredContests] = useState(contests);
   const [searchParas] = useSearchParams();
 
   const category = searchParas.get("category");
@@ -27,12 +28,13 @@ const AllContests = () => {
     } else {
       setFilteredContests(contests);
     }
-  }, [category, contests]);
+  }, [category]);
 
   if (isLoading) return <Loader />;
 
   return (
     <div className="mt-10">
+      <Title title="Contests | Talent Hunt" />
       <Categories />
       <Container>
         {filteredContests?.length === 0 && (
