@@ -27,7 +27,7 @@ function Pagination({ count = 0 }) {
 
   return (
     <div className="w-full flex items-center justify-between">
-      <p className="text-sm font-normal">
+      <p className="text-sm text-gray-700 font-normal">
         Showing{" "}
         <span className="font-semibold">
           {(currentPage - 1) * PAGE_SIZE + 1}
@@ -40,30 +40,34 @@ function Pagination({ count = 0 }) {
       </p>
 
       <div className="flex gap-2">
-        <button
-          disabled={currentPage === 1}
-          onClick={prevPage}
-          className={`${
-            currentPage === 1
-              ? "bg-gray-50 text-gray-500"
-              : "bg-blue-600 text-white"
-          } px-2 py-1 text-sm rounded-md font-medium flex items-center transition-all duration-300 hover:bg-blue-600 hover:text-white`}
-        >
-          <HiChevronLeft className="h-6 w-6" />
-          <span>Previous</span>
-        </button>
-        <button
-          disabled={currentPage === pageCount}
-          onClick={nextPage}
-          className={`${
-            currentPage === pageCount
-              ? "bg-gray-50 text-gray-500"
-              : "bg-blue-600 text-white"
-          } px-4 py-2 rounded-md font-semibold flex items-center transition-all duration-300 hover:bg-blue-600 hover:text-white`}
-        >
-          <span>Next</span>
-          <HiChevronRight className="h-6 w-6" />
-        </button>
+        <div>
+          <button
+            disabled={currentPage === 1}
+            onClick={prevPage}
+            className={`${
+              currentPage === 1
+                ? "bg-gray-50 text-gray-500"
+                : "bg-blue-600 text-white"
+            } px-2 py-1 text-sm rounded-md font-medium flex items-center transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50  hover:bg-blue-600 hover:text-white`}
+          >
+            <HiChevronLeft className="h-6 w-6" />
+            <span>Previous</span>
+          </button>
+        </div>
+        <div>
+          <button
+            disabled={currentPage === pageCount}
+            onClick={nextPage}
+            className={`${
+              currentPage === pageCount
+                ? "bg-gray-50 text-gray-500"
+                : "bg-blue-600 text-white"
+            } px-2 py-1 rounded-md font-semibold flex items-center transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50  hover:bg-blue-600 hover:text-white`}
+          >
+            <span>Next</span>
+            <HiChevronRight className="h-6 w-6" />
+          </button>
+        </div>
       </div>
     </div>
   );

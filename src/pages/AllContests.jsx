@@ -6,11 +6,32 @@ import Categories from "../components/Contest/Categories";
 import { useEffect, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import Title from "../components/Shared/Title";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const AllContests = () => {
   const location = useLocation();
   const text = location?.state?.search || "";
-  const { contests, isLoading, refetch } = useContests(text);
+  const { contests, isLoading } = useContests(text);
   const [filteredContests, setFilteredContests] = useState(contests);
   const [searchParas] = useSearchParams();
 
@@ -28,7 +49,7 @@ const AllContests = () => {
     } else {
       setFilteredContests(contests);
     }
-  }, [category]);
+  }, [category, contests]);
 
   if (isLoading) return <Loader />;
 
@@ -42,11 +63,20 @@ const AllContests = () => {
             No contests found
           </p>
         )}
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {filteredContests?.map((contest) => (
-            <ContestCard key={contest._id} contest={contest} />
-          ))}
-        </div>
+        <motion.div
+          className="container"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {filteredContests?.map((contest) => (
+              <motion.div key={contest._id} className="item" variants={item}>
+                <ContestCard contest={contest} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </Container>
     </div>
   );

@@ -31,7 +31,7 @@ const ContestCard = ({ contest }) => {
           </div>
           <div className="mt-auto">
             <Link to={`/contests/${_id}`} className="mt-auto">
-              <button className="py-2 px-4 bg-blue-500 text-white rounded-lg w-full">
+              <button className="py-2 px-4 bg-[#FF9736] text-white rounded-lg w-full">
                 Details
               </button>
             </Link>

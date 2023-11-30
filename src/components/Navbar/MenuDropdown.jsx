@@ -33,7 +33,7 @@ const MenuDropdown = ({ role, isLoading }) => {
         >
           {/* Avatar */}
           <img
-            className="rounded-full object-cover h-10 w-10"
+            className="rounded-full object-cover h-10 w-10 border-2 border-[#FF9736]"
             referrerPolicy="no-referrer"
             src={user && user.photoURL}
             alt="profile"

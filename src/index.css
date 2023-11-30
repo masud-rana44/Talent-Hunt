@@ -7,7 +7,7 @@
 }
 
 .active {
-  @apply text-indigo-600;
+  @apply text-[#FF7A00] font-semibold;
 }
 
 @layer components {
