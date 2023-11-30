@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getContestById } from "../api/apiContests";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useContestById = (id) => {
+  const axiosSecure = useAxiosSecure();
+
   const {
     data: contest = {},
     error,
@@ -9,7 +11,10 @@ const useContestById = (id) => {
     refetch,
   } = useQuery({
     queryKey: ["contestById", id],
-    queryFn: async () => await getContestById(id),
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/contests/${id}`);
+      return data;
+    },
   });
   return { contest, error, isLoading, refetch };
 };

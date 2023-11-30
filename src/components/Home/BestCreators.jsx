@@ -10,7 +10,7 @@ const BestCreators = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="mt-20">
+    <div className="mt-[340px]">
       <Container>
         <SectionHeading
           title="Best Creators"

@@ -17,33 +17,37 @@ const Advertise = () => {
         />
         <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8">
           {contests.map((contest, index) => (
-            <div key={index} className="relative rounded-lg border p-6">
-              {/* <div className="absolute inset-0">
+            <div
+              key={index}
+              className="relative rounded-lg border p-6 bg-gray-100"
+            >
+              <div className="absolute inset-0 h-[300px] w-full">
                 <img
                   className="object-cover object-right w-full h-full lg:object-center"
                   src={contest?.image}
                   alt=""
                 />
-              </div> */}
+              </div>
 
-              {/* <div className="absolute inset-0 bg-gray-900 bg-opacity-40"></div> */}
-              <div className="flex items-center mb-4 ">
+              <div className="absolute inset-0 h-[300px] bg-gray-900 bg-opacity-60"></div>
+              <div className="flex flex-col w-full justify-center items-center mb-4 z-10 absolute top-10 left-0 text-white">
                 <img
-                  src={contest.winner.image}
+                  src={contest?.winner?.image}
                   alt="Image"
-                  className="w-12 h-12 rounded-full mr-4 object-cover"
+                  className="w-16 h-16 rounded-full mr-4 object-cover"
                 />
                 <div>
-                  <p className="text-gray-800 font-bold">
-                    {contest.winner.name} win {contest?.prizeMoney}$ Prize Money
+                  <p className=" text-2xl  font-bold">
+                    {contest.winner.name} win{" "}
+                    <span>{contest?.prizeMoney}$</span> Prize Money
                   </p>
-                  <p className="text-gray-600">{contest?.title}</p>
+                  <p className="font-semibold">from {contest?.title}</p>
                 </div>
+                <p className="font-medium text-xl mb-4 mt-6">
+                  Participants {contest.participantCount} people from all over
+                  the world
+                </p>
               </div>
-              <p className="text-gray-700 mb-4">
-                Participants {contest.participantCount} people from all over the
-                world
-              </p>
             </div>
           ))}
         </div>

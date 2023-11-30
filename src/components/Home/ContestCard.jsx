@@ -7,7 +7,7 @@ const ContestCard = ({ contest }) => {
   return (
     <motion.div
       className="box"
-      whileHover={{ scale: [null, 1.1, 1.07] }}
+      whileHover={{ scale: [null, 1.05, 1.03] }}
       transition={{ duration: 0.3 }}
     >
       <div className="bg-white flex flex-col rounded-lg shadow-md p-4 break-words">

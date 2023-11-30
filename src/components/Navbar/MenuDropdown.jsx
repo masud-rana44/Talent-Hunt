@@ -5,12 +5,13 @@ import toast from "react-hot-toast";
 
 const MenuDropdown = ({ role, isLoading }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logOut } = useAuth();
+  const { user, logOut, setLoading } = useAuth();
 
   const handleLogout = async () => {
     try {
       await logOut();
       toast.success("Logout successfully");
+      setLoading(false);
     } catch (error) {
       toast.error(error?.message || "Failed to logout");
     }

@@ -43,7 +43,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = async () => {
-    setLoading(true);
     await clearCookie();
     return signOut(auth);
   };

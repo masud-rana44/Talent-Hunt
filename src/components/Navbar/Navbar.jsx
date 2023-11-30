@@ -45,7 +45,7 @@ const Navbar = () => {
   );
 
   return (
-    <header className="fixed w-full bg-gray-50 z-10  py-4 md:py-6">
+    <header className="fixed w-full bg-gray-50 border-b z-10  py-4 md:py-6">
       <div className="container px-4 mx-auto sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-x-4">
           {/* Logo */}

@@ -1,14 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUserStats } from "../api/apiContests";
+import useAxiosSecure from "./useAxiosSecure";
 
 const useUserStats = () => {
+  const axiosSecure = useAxiosSecure();
+
   const {
     data: stats,
     error,
     isLoading,
   } = useQuery({
     queryKey: ["user-stats"],
-    queryFn: () => getUserStats(),
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/contests/user-stats`);
+      return data;
+    },
   });
 
   return { stats, error, isLoading };

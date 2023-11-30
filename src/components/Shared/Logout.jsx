@@ -5,12 +5,13 @@ import Button from "./Button";
 import SpinnerMini from "./SpinnerMini";
 
 const Logout = () => {
-  const { logOut, loading } = useAuth();
+  const { logOut, loading, setLoading } = useAuth();
 
   const handleLogout = async () => {
     try {
       await logOut();
       toast.success("Logout successfully");
+      setLoading(false);
     } catch (error) {
       toast.error(error?.message || "Failed to logout");
     }
