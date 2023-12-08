@@ -48,7 +48,8 @@ function Pagination({ count = 0 }) {
               currentPage === 1
                 ? "bg-gray-50 text-gray-500"
                 : "bg-blue-600 text-white"
-            } px-2 py-1 text-sm rounded-md font-medium flex items-center transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50  hover:bg-blue-600 hover:text-white`}
+            } px-2 py-1 text-sm rounded-md font-medium flex items-center transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50  hover:bg-blue-600 disabled:hover:bg-gray-50
+            disabled:hover:text-gray-500 hover:text-white`}
           >
             <HiChevronLeft className="h-6 w-6" />
             <span>Previous</span>
@@ -62,7 +63,8 @@ function Pagination({ count = 0 }) {
               currentPage === pageCount
                 ? "bg-gray-50 text-gray-500"
                 : "bg-blue-600 text-white"
-            } px-2 py-1 rounded-md font-semibold flex items-center transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50  hover:bg-blue-600 hover:text-white`}
+            } px-2 py-1 rounded-md font-semibold flex items-center transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-gray-50
+            disabled:hover:text-gray-500  hover:bg-blue-600 hover:text-white`}
           >
             <span>Next</span>
             <HiChevronRight className="h-6 w-6" />

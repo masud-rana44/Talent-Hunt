@@ -1,15 +1,16 @@
 import MenuItem from "./MenuItem";
-import { HiOutlineCalendarDays, HiOutlineUser } from "react-icons/hi2";
+import { FaTrophy, FaUser, FaUsers } from "react-icons/fa";
 
 const AdminMenu = () => {
   return (
     <>
-      <MenuItem label="Users" icon={HiOutlineUser} address="/dashboard/users" />
+      <MenuItem label="Users" icon={FaUsers} address="/dashboard/users" />
       <MenuItem
         label="Contests"
-        icon={HiOutlineCalendarDays}
+        icon={FaTrophy}
         address="/dashboard/contests"
       />
+      <MenuItem label="My Profile" icon={FaUser} address="/dashboard/profile" />
     </>
   );
 };

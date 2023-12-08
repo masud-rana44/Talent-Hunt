@@ -1,8 +1,14 @@
 import toast from "react-hot-toast";
 import { updateUser } from "../../../api/apiUsers";
 import Table from "../Table";
+import { useSearchParams } from "react-router-dom";
+
+const PAZE_SIZE = import.meta.env.VITE_APP_PAGE_SIZE;
 
 const UsersRow = ({ item, idx }) => {
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+
   const handleRoleChange = async (userId, newRole) => {
     try {
       await updateUser(userId, { role: newRole });
@@ -14,7 +20,9 @@ const UsersRow = ({ item, idx }) => {
 
   return (
     <Table.Row>
-      <div className="font-medium font-sono">0{idx}</div>
+      <div className="font-medium font-sono">
+        {`${idx + 1 + PAZE_SIZE * (page - 1)}`.padStart(2, "0")}
+      </div>
       <div>
         <img src={item.image} alt="" className="w-10 h-10 object-cover" />
       </div>
