@@ -31,7 +31,7 @@ const DetailsHeader = ({ contest }) => {
               <div className="text-4xl">
                 <Countdown date={new Date(contest?.deadline)}>
                   <div className="text-2xl">
-                    {formatDate(contest?.deadline).slice(0, 22)}
+                    {formatDate(contest?.deadline)}
                   </div>
                 </Countdown>
               </div>

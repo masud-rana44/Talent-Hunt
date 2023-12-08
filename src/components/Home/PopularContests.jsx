@@ -44,7 +44,7 @@ const PopularContests = () => {
           initial="hidden"
           animate="visible"
         >
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="mt-10 items-stretch grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {contests?.map((contest) => (
               <motion.div key={contest._id} className="item" variants={item}>
                 <ContestCard contest={contest} />
