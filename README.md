@@ -3,7 +3,7 @@ Talent Hunt | Online Contest Site</h1>
 
 <p align="center"><img src="./src/assets/banner.PNG" alt="Talent Hunt Banner"></p>
 
-<p>This is a client site repository for Talent Hunt an Online Contest Platform with  React, Tailwind, Express, Firebase, JWT, and Mongoose.</p>
+<p>This is the client site repository for Talent Hunt an Online Contest Platform with  React, Tailwind, Express, Firebase, JWT, and Mongoose.</p>
 
 ## 📝 Features
 
@@ -16,9 +16,10 @@ Talent Hunt | Online Contest Site</h1>
 - Stripe payment integration, fully responsive, pagination, JWT, leaderboards for top participants, toast notifications, login, and register.
 - Coin systems allow creators to purchase coins for creating a specific number of contests.
 
-## 🚀 Live Link
+## 🚀 Important Links
 
-[https://contest-platform-d8309.web.app](https://contest-platform-d8309.web.app)
+- Live Website link: [https://contest-platform-d8309.web.app](https://contest-platform-d8309.web.app)
+- Server site repo link: [https://github.com/masud-rana44/talent-hunt-server](https://github.com/masud-rana44/talent-hunt-server)
 
 ## 🔐 Demo Account
 
