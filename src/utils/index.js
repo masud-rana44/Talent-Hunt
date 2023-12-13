@@ -6,3 +6,8 @@ export const formatDate = (dateTime) => {
 };
 
 export const isContestEnd = (deadline) => moment(deadline).isBefore(moment());
+
+export const formatCurrency = (value) =>
+  new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
+    value
+  );

@@ -1,21 +1,34 @@
 import MenuItem from "./MenuItem";
-import { FaTrophy, FaUser, FaUsers } from "react-icons/fa";
+import {
+  HiOutlineHome,
+  HiOutlineUsers,
+  HiOutlineTrophy,
+  HiOutlineUser,
+} from "react-icons/hi2";
 
 const AdminMenu = () => {
   return (
     <>
       <MenuItem
-        label="Dashboard"
-        icon={FaUsers}
+        label="Home"
+        icon={HiOutlineHome}
         address="/dashboard/admin-stats"
       />
-      <MenuItem label="Users" icon={FaUsers} address="/dashboard/users" />
+      <MenuItem
+        label="Users"
+        icon={HiOutlineUsers}
+        address="/dashboard/users"
+      />
       <MenuItem
         label="Contests"
-        icon={FaTrophy}
+        icon={HiOutlineTrophy}
         address="/dashboard/contests"
       />
-      <MenuItem label="My Profile" icon={FaUser} address="/dashboard/profile" />
+      <MenuItem
+        label="My Profile"
+        icon={HiOutlineUser}
+        address="/dashboard/profile"
+      />
     </>
   );
 };
