@@ -27,6 +27,7 @@ import AdminRoute from "./AdminRoute";
 import CreatorRoute from "./CreatorRoute";
 import LeaderBoard from "../pages/LeaderBoard";
 import BuyCredits from "../pages/BuyCredits";
+import AdminDashboard from "../pages/admin/AdminDashboard";
 
 const router = createBrowserRouter([
   {
@@ -119,6 +120,14 @@ const router = createBrowserRouter([
         element: <ContestSubmission />,
       },
       // admin routes
+      {
+        path: "admin-stats",
+        element: (
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        ),
+      },
       {
         path: "users",
         element: (

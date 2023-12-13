@@ -4,6 +4,11 @@ import { FaTrophy, FaUser, FaUsers } from "react-icons/fa";
 const AdminMenu = () => {
   return (
     <>
+      <MenuItem
+        label="Dashboard"
+        icon={FaUsers}
+        address="/dashboard/admin-stats"
+      />
       <MenuItem label="Users" icon={FaUsers} address="/dashboard/users" />
       <MenuItem
         label="Contests"

@@ -26,3 +26,8 @@ export const addCredit = async (credits) => {
   const { data } = await axiosSecure.patch(`/users/credits`, credits);
   return data;
 };
+
+export const getAdminStats = async () => {
+  const { data } = await axiosSecure.get(`/users/admin-stats`);
+  return data;
+};
